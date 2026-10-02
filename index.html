@@ -1,0 +1,707 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mandarin Talk</title>
+<meta name="description" content="Practical Mandarin for aviation, business and travel — English, Chinese and pinyin side by side.">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="referrer" content="no-referrer"><!-- the online voice refuses requests that name another website -->
+<meta name="apple-mobile-web-app-title" content="Mandarin Talk">
+<meta name="theme-color" content="#f6f3ed" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#121110" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23b8322a'/%3E%3Ctext x='32' y='45' font-size='38' text-anchor='middle' fill='white' font-family='PingFang SC,Hiragino Sans GB,sans-serif'%3E说%3C/text%3E%3C/svg%3E">
+<style>
+:root{
+  --bg:#f6f3ed; --surface:#fffdf8; --surface-2:#efe9df; --ink:#1f1c18; --ink-2:#4a453e; --muted:#766e64; --line:#e3dccf;
+  --accent:#b8322a; --accent-ink:#fff; --accent-soft:#f6e2dd;
+  --jade:#2a7553; --jade-soft:#dfeee5; --amber:#8a5d00; --amber-soft:#f4e8cd;
+  --t1:#c62f2a; --t2:#b87200; --t3:#23824c; --t4:#2a5fc4; --t5:#8b857c;
+  --shadow:0 1px 2px rgba(40,30,20,.05),0 6px 20px rgba(40,30,20,.05);
+  --radius:14px;
+  --zh:"PingFang SC","Hiragino Sans GB","Noto Sans SC","Microsoft YaHei",sans-serif;
+  --zh-serif:"Songti SC","STSong","Noto Serif SC","SimSun",serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#121110; --surface:#1b1a18; --surface-2:#262421; --ink:#efebe4; --ink-2:#cfc8bd; --muted:#9d968b; --line:#302d29;
+    --accent:#e0594d; --accent-ink:#fff; --accent-soft:#3b201c;
+    --jade:#5cc08f; --jade-soft:#1a3127; --amber:#e3b252; --amber-soft:#382d16;
+    --t1:#ff7366; --t2:#f2b440; --t3:#5fcb8f; --t4:#79a9ff; --t5:#9a948a;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 6px 20px rgba(0,0,0,.25);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#121110; --surface:#1b1a18; --surface-2:#262421; --ink:#efebe4; --ink-2:#cfc8bd; --muted:#9d968b; --line:#302d29;
+  --accent:#e0594d; --accent-ink:#fff; --accent-soft:#3b201c;
+  --jade:#5cc08f; --jade-soft:#1a3127; --amber:#e3b252; --amber-soft:#382d16;
+  --t1:#ff7366; --t2:#f2b440; --t3:#5fcb8f; --t4:#79a9ff; --t5:#9a948a;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 6px 20px rgba(0,0,0,.25);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+a{color:inherit}
+svg{display:block}
+.wrap{max-width:1000px;margin:0 auto;padding:0 16px}
+
+/* ── top bar ── */
+.top{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:saturate(1.4) blur(12px);-webkit-backdrop-filter:saturate(1.4) blur(12px);border-bottom:1px solid var(--line);padding-top:env(safe-area-inset-top)}
+.top .wrap{display:flex;align-items:center;gap:12px;height:60px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;flex:none}
+.seal{width:34px;height:34px;border-radius:9px;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font:600 20px/1 var(--zh)}
+.brand b{font-size:16px;letter-spacing:-.01em}
+.search{flex:1;display:flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:0 12px;height:40px;min-width:0}
+.search svg{color:var(--muted);flex:none}
+.search input{flex:1;min-width:0;border:0;background:none;color:var(--ink);font:inherit;font-size:15px;outline:none}
+.search input::placeholder{color:var(--muted)}
+.icon-btn{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;color:var(--ink-2);flex:none}
+.icon-btn:hover{background:var(--surface-2)}
+@media (max-width:560px){.brand b{display:none}}
+
+/* ── home ── */
+.hero{padding:34px 0 8px;display:grid;grid-template-columns:1fr auto;gap:20px;align-items:end}
+.hero h1{margin:0;font-size:clamp(26px,4.4vw,36px);line-height:1.15;letter-spacing:-.02em;font-weight:700}
+.hero h1 span{font-family:var(--zh-serif);font-weight:600;color:var(--accent)}
+.hero p{margin:10px 0 0;color:var(--ink-2);max-width:56ch}
+.overall{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;min-width:230px;box-shadow:var(--shadow)}
+.overall .num{font-size:26px;font-weight:700;letter-spacing:-.02em}
+.overall .num small{font-size:14px;color:var(--muted);font-weight:500}
+.overall .lab{font-size:13px;color:var(--muted)}
+.bar{height:6px;border-radius:6px;background:var(--surface-2);overflow:hidden;margin-top:10px}
+.bar i{display:block;height:100%;background:var(--jade);border-radius:6px;transition:width .4s}
+.overall .row-btns{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+@media (max-width:700px){.hero{grid-template-columns:1fr}.overall{min-width:0}}
+.news{margin:18px 0 4px;display:flex;gap:10px;align-items:baseline;font-size:13px;color:var(--ink-2);flex-wrap:wrap}
+.news b{color:var(--accent);font-weight:600;font-size:12px;letter-spacing:.06em;text-transform:uppercase}
+.continue{display:inline-flex;align-items:center;gap:6px;color:var(--accent);font-weight:600;text-decoration:none;font-size:14px}
+.area{margin-top:30px}
+.area h2{display:flex;align-items:baseline;gap:10px;margin:0 0 12px;font-size:20px;letter-spacing:-.01em}
+.area h2 span{font-family:var(--zh-serif);color:var(--muted);font-weight:500;font-size:18px}
+.area h2 em{margin-left:auto;font-style:normal;font-size:13px;color:var(--muted);font-weight:500}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.card{display:block;text-decoration:none;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px 16px 14px;box-shadow:var(--shadow);transition:transform .15s,border-color .15s}
+.card:hover{transform:translateY(-2px);border-color:color-mix(in srgb,var(--accent) 40%,var(--line))}
+.card .zhT{font:600 23px/1.2 var(--zh-serif);display:flex;align-items:center;gap:8px}
+.card .enT{font-weight:600;font-size:15px;margin-top:4px}
+.card .meta{font-size:13px;color:var(--muted);margin-top:2px}
+.card .foot{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-top:6px}
+.tag-new{font:600 12px/1 -apple-system,sans-serif;background:var(--accent);color:var(--accent-ink);padding:4px 7px;border-radius:6px;letter-spacing:.02em}
+.card.mine{border-style:dashed}
+
+/* ── buttons ── */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 16px;border-radius:11px;font-weight:600;font-size:14px;background:var(--surface-2);color:var(--ink);text-decoration:none;white-space:nowrap}
+.btn:hover{filter:brightness(.97)}
+.btn.primary{background:var(--accent);color:var(--accent-ink)}
+.btn.ghost{background:none;border:1px solid var(--line)}
+.btn.small{height:34px;padding:0 12px;font-size:13px}
+
+/* ── module page ── */
+.mhead{padding:24px 0 6px}
+.back{display:inline-flex;align-items:center;gap:6px;color:var(--muted);text-decoration:none;font-size:14px;margin-bottom:12px}
+.back:hover{color:var(--ink)}
+.mtitle{display:flex;align-items:flex-end;gap:16px;flex-wrap:wrap}
+.mtitle h1{margin:0;font-size:clamp(24px,4vw,32px);letter-spacing:-.02em;line-height:1.15}
+.mtitle .zhT{font:600 clamp(24px,4vw,32px)/1.15 var(--zh-serif);color:var(--accent)}
+.mtitle .grow{flex:1}
+.mstats{color:var(--muted);font-size:14px;margin-top:6px}
+.filters{position:sticky;top:calc(60px + env(safe-area-inset-top));z-index:10;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);padding:10px 0;border-bottom:1px solid var(--line);margin-top:14px}
+.filters .wrap{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.seg{display:inline-flex;background:var(--surface-2);border-radius:10px;padding:3px}
+.seg button{height:30px;padding:0 12px;border-radius:8px;font-size:13px;font-weight:600;color:var(--ink-2)}
+.seg button[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.1)}
+.switch{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--ink-2);cursor:pointer;user-select:none}
+.switch input{appearance:none;-webkit-appearance:none;width:34px;height:20px;border-radius:20px;background:var(--line);position:relative;cursor:pointer;margin:0;transition:background .2s}
+.switch input::after{content:"";position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.25);transition:transform .2s}
+.switch input:checked{background:var(--jade)}
+.switch input:checked::after{transform:translateX(14px)}
+.jump{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding:8px 0 2px;width:100%}
+.jump::-webkit-scrollbar{display:none}
+.jump button{flex:none;height:30px;padding:0 12px;border-radius:15px;border:1px solid var(--line);font-size:13px;color:var(--ink-2);background:var(--surface)}
+.jump button:hover{border-color:var(--accent);color:var(--accent)}
+
+.group{margin-top:26px;scroll-margin-top:170px}
+.group h3{display:flex;align-items:baseline;gap:10px;margin:0 0 8px;font-size:17px}
+.group h3 span{font:500 16px var(--zh-serif);color:var(--muted)}
+.group h3 em{margin-left:auto;font-style:normal;font-size:12px;color:var(--muted);font-weight:500}
+.list{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
+.row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.35fr) auto;gap:16px;padding:14px 14px 14px 18px;border-top:1px solid var(--line);align-items:start;transition:background .2s}
+.row:first-child{border-top:0}
+.row.is-known{background:color-mix(in srgb,var(--jade-soft) 45%,transparent)}
+.en-t{margin:2px 0 0;font-size:15.5px;line-height:1.45;font-weight:500}
+.meta{display:flex;flex-wrap:wrap;gap:6px 8px;align-items:center;margin-top:6px}
+.lvl{font-size:12px;font-weight:600;padding:2px 8px;border-radius:6px;line-height:18px}
+.lvl.E{background:var(--jade-soft);color:var(--jade)}
+.lvl.M{background:var(--amber-soft);color:var(--amber)}
+.lvl.H{background:var(--accent-soft);color:var(--accent)}
+.note{font-size:12.5px;color:var(--muted);line-height:1.4}
+.mod-label{font-size:12px;color:var(--muted)}
+.zh{display:flex;flex-wrap:wrap;align-content:flex-start;text-align:left;border-radius:10px;padding:2px 4px;margin:-2px -4px;cursor:pointer}
+.zh:hover{background:var(--surface-2)}
+.c{display:inline-flex;flex-direction:column;align-items:center;margin:0 1px 4px}
+.c b{font:400 22px/1.25 var(--zh);color:var(--ink)}
+.c i{font:500 12.5px/1.2 -apple-system,"Segoe UI",sans-serif;font-style:normal;color:var(--t5);min-height:15px;padding:0 1px;white-space:nowrap}
+.c.x b{font-family:-apple-system,"Segoe UI",var(--zh)}
+.tones .c.t1 i{color:var(--t1)} .tones .c.t2 i{color:var(--t2)} .tones .c.t3 i{color:var(--t3)} .tones .c.t4 i{color:var(--t4)}
+.no-py .c i{display:none}
+.acts{display:flex;flex-direction:column;gap:6px}
+.ic{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;color:var(--muted);border:1px solid var(--line);background:var(--surface)}
+.ic:hover{color:var(--ink);border-color:var(--muted)}
+.ic.say.playing{color:var(--accent);border-color:var(--accent);animation:pulse 1s infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 4px var(--accent-soft)}}
+.ic.tick[aria-pressed="true"]{background:var(--jade);border-color:var(--jade);color:#fff}
+@media (max-width:600px){
+  .row{gap:8px 12px;padding:12px;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);grid-template-areas:"en zh" "acts zh"}
+  .row .en{grid-area:en} .row .zh{grid-area:zh} .row .acts{grid-area:acts;flex-direction:row;align-self:end}
+  .en-t{font-size:14.5px}
+  .c b{font-size:19px}
+  .c i{font-size:12px}
+  .ic{width:34px;height:34px}
+}
+.empty{padding:40px 16px;text-align:center;color:var(--muted)}
+.section-note{font-size:13px;color:var(--muted);margin:16px 0 0}
+
+/* ── my phrases editor ── */
+.editor{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px;margin-top:16px;box-shadow:var(--shadow)}
+.editor textarea{width:100%;min-height:260px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);font:14px/1.6 ui-monospace,Menlo,monospace;padding:12px;resize:vertical}
+.editor p{margin:0 0 10px;font-size:13.5px;color:var(--ink-2)}
+.editor code{background:var(--surface-2);padding:1px 5px;border-radius:5px;font-size:13px}
+.editor .btns{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+
+/* ── settings sheet ── */
+.sheet-bg{position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:40;display:none}
+.sheet{position:fixed;z-index:41;right:16px;top:calc(68px + env(safe-area-inset-top));width:min(340px,calc(100vw - 32px));background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:0 20px 50px rgba(0,0,0,.2);padding:8px 16px 16px;display:none}
+.sheet.open,.sheet-bg.open{display:block}
+.sheet h4{margin:10px 0 4px;font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.sheet .opt{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--line);font-size:14px}
+.sheet .opt:last-of-type{border-bottom:0}
+.sheet .voice{font-size:12.5px;color:var(--muted);margin-top:8px}
+.danger{color:var(--accent);font-weight:600;font-size:14px;margin-top:12px}
+
+/* ── practice ── */
+.pr{position:fixed;inset:0;z-index:50;background:var(--bg);display:none;flex-direction:column;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
+.pr.open{display:flex}
+.pr-top{display:flex;align-items:center;gap:12px;padding:12px 16px;max-width:720px;width:100%;margin:0 auto}
+.pr-top .count{font-weight:600;font-size:14px;color:var(--ink-2);white-space:nowrap}
+.pr-top .grow{flex:1}
+.pr-prog{height:4px;background:var(--surface-2);max-width:688px;width:calc(100% - 32px);margin:0 auto;border-radius:4px;overflow:hidden}
+.pr-prog i{display:block;height:100%;background:var(--accent);transition:width .3s}
+.pr-body{flex:1;display:flex;align-items:center;justify-content:center;padding:16px;overflow:auto}
+.flash{width:100%;max-width:640px;background:var(--surface);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);padding:28px 24px;text-align:center;min-height:300px;display:flex;flex-direction:column;justify-content:center;gap:16px}
+.flash .q-en{font-size:clamp(20px,4.5vw,26px);font-weight:600;line-height:1.35;letter-spacing:-.01em}
+.flash .zh{justify-content:center;margin:0;cursor:default}
+.flash .zh:hover{background:none}
+.flash .c b{font-size:clamp(26px,6vw,34px)}
+.flash .c i{font-size:14px}
+.flash .divider{height:1px;background:var(--line);margin:4px 0}
+.flash .say-big{align-self:center;display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 16px;border-radius:20px;border:1px solid var(--line);color:var(--ink-2);font-weight:600;font-size:14px}
+.flash .say-big.playing{color:var(--accent);border-color:var(--accent)}
+.flash .note{font-size:13.5px}
+.pr-btns{display:flex;gap:10px;justify-content:center;padding:12px 16px 20px;max-width:720px;width:100%;margin:0 auto}
+.pr-btns .btn{flex:1;height:52px;font-size:16px;border-radius:14px;max-width:300px}
+.btn.got{background:var(--jade);color:var(--surface)}
+.pr-hint{text-align:center;font-size:12px;color:var(--muted);padding-bottom:12px}
+@media (hover:none){.pr-hint{display:none}}
+.done h2{margin:0;font-size:26px}
+.done p{margin:0;color:var(--ink-2)}
+
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom));transform:translate(-50%,20px);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:12px;font-size:14px;opacity:0;pointer-events:none;transition:all .25s;z-index:60;max-width:calc(100vw - 32px);text-align:center}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.warn{background:var(--accent-soft);color:var(--accent);border-radius:12px;padding:10px 14px;margin-top:16px;font-size:14px}
+footer{color:var(--muted);font-size:12.5px;text-align:center;padding:40px 16px calc(40px + env(safe-area-inset-bottom))}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#/" aria-label="Mandarin Talk home"><span class="seal">说</span><b>Mandarin Talk</b></a>
+    <label class="search">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="q" type="search" placeholder="Search English, 中文 or pinyin" autocomplete="off" aria-label="Search phrases">
+    </label>
+    <button class="icon-btn" id="themeBtn" aria-label="Switch light / dark mode"></button>
+    <button class="icon-btn" id="gear" aria-label="Settings">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg>
+    </button>
+  </div>
+</header>
+
+<main id="app" class="wrap"></main>
+<footer>Pinyin is generated automatically. Chinese voice comes from your device.</footer>
+
+<div class="sheet-bg" id="sheetBg"></div>
+<div class="sheet" id="sheet" role="dialog" aria-label="Settings">
+  <h4>Display</h4>
+  <label class="opt switch">Show pinyin <input type="checkbox" data-set="pinyin"></label>
+  <label class="opt switch">Colour pinyin by tone <input type="checkbox" data-set="tones"></label>
+  <div class="opt">Theme
+    <div class="seg" id="themeSeg"><button data-theme="auto">Auto</button><button data-theme="light">Light</button><button data-theme="dark">Dark</button></div>
+  </div>
+  <h4>Audio</h4>
+  <div class="opt">Voice
+    <div class="seg" id="engSeg"><button data-eng="online">Online</button><button data-eng="device">This device</button></div>
+  </div>
+  <label class="opt switch">Slow voice <input type="checkbox" data-set="slow"></label>
+  <label class="opt switch">Auto-play in practice <input type="checkbox" data-set="autoplay"></label>
+  <div class="voice" id="voiceName"></div>
+  <button class="danger" id="resetBtn">Reset progress</button>
+</div>
+
+<div class="pr" id="pr" role="dialog" aria-label="Practice">
+  <div class="pr-top">
+    <button class="icon-btn" id="prClose" aria-label="Close practice"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    <span class="count" id="prCount"></span>
+    <span class="grow"></span>
+    <div class="seg" id="dirSeg"><button data-dir="en">EN → 中</button><button data-dir="zh">中 → EN</button></div>
+  </div>
+  <div class="pr-prog"><i id="prBar"></i></div>
+  <div class="pr-body"><div class="flash" id="flash"></div></div>
+  <div class="pr-btns" id="prBtns"></div>
+  <div class="pr-hint">Space = show answer · 1 = again · 2 = got it</div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="lib/pinyin-pro.js"></script>
+<script>
+// Modules call MT.module({...}) when they load.
+window.MT = { modules: [], failed: [], areas: [], files: [], changelog: [],
+  module(def) { if (!this.modules.some(m => m.id === def.id)) this.modules.push(def); } };
+</script>
+<script src="modules/_list.js"></script>
+<script>
+(function () {
+"use strict";
+
+/* ───────────── storage ───────────── */
+const store = {
+  get(k, d) { try { const v = localStorage.getItem(k); return v == null ? d : JSON.parse(v); } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+};
+// iPhone mutes the built-in voice when the phone is on silent, so iPhones/iPads start on the online voice.
+const IOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+const S = Object.assign({ pinyin: true, tones: true, slow: false, autoplay: true, theme: "auto", dir: "en", engine: IOS ? "online" : "device" }, store.get("mt_settings_v1", {}));
+const known = new Set(store.get("mt_known_v1", []));
+const saveS = () => store.set("mt_settings_v1", S);
+const saveKnown = () => store.set("mt_known_v1", [...known]);
+
+/* ───────────── helpers ───────────── */
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const hash = s => { let h = 5381; for (let i = 0; i < s.length; i++) h = (h * 33) ^ s.charCodeAt(i); return (h >>> 0).toString(36); };
+const LV = { E: "Easy", M: "Medium", H: "Hard" };
+const fmt = n => n.toLocaleString("en");
+const strip = s => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+const ICON = {
+  say: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg>',
+  tick: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>',
+  back: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 6l-6 6 6 6"/></svg>',
+  play: '<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M7 5v14l12-7z"/></svg>'
+};
+function toast(msg) { const t = $("#toast"); t.textContent = msg; t.classList.add("show"); clearTimeout(toast.t); toast.t = setTimeout(() => t.classList.remove("show"), 2600); }
+
+/* ───────────── parsing ─────────────
+   Line:  Level | English | 中文 | note        "# Title | 标题" = group
+   字[pīn] after a character fixes its pinyin. */
+function parsePhrases(modId, text) {
+  const groups = []; let g = null;
+  String(text || "").split("\n").forEach(raw => {
+    const line = raw.trim();
+    if (!line || line.startsWith("//")) return;
+    if (line.startsWith("#")) {
+      const [t, z] = line.slice(1).split("|").map(s => s.trim());
+      g = { title: t || "Phrases", zh: z || "", items: [] }; groups.push(g); return;
+    }
+    const parts = line.split("|").map(s => s.trim());
+    let lvl = "M";
+    if (/^[EMH]$/i.test(parts[0])) lvl = parts.shift().toUpperCase();
+    const [en, zhRaw, note] = parts;
+    if (!en || !zhRaw) return;
+    let zh = "", ov = {};
+    for (let i = 0; i < zhRaw.length; i++) {
+      if (zhRaw[i] === "[") { const j = zhRaw.indexOf("]", i); if (j > i) { ov[zh.length - 1] = zhRaw.slice(i + 1, j).trim(); i = j; continue; } }
+      zh += zhRaw[i];
+    }
+    if (!g) { g = { title: "Phrases", zh: "", items: [] }; groups.push(g); }
+    g.items.push({ id: modId + "-" + hash(zh), mod: modId, en, zh, ov, lvl, note: note || "", group: g.title });
+  });
+  return groups;
+}
+function buildModule(def) {
+  const groups = parsePhrases(def.id, def.phrases);
+  return Object.assign({}, def, { groups, items: groups.flatMap(g => g.items) });
+}
+
+/* ───────────── pinyin ───────────── */
+const TONE = { 1: "āēīōūǖĀĒĪŌŪ", 2: "áéíóúǘÁÉÍÓÚ", 3: "ǎěǐǒǔǚǍĚǏǑǓ", 4: "àèìòùǜÀÈÌÒÙ" };
+const toneOf = py => { for (const t in TONE) if ([...py].some(ch => TONE[t].includes(ch))) return +t; return 5; };
+function cells(p) {
+  if (p._cells) return p._cells;
+  const out = [];
+  let arr = [];
+  try { arr = window.pinyinPro ? pinyinPro.pinyin(p.zh, { type: "all" }) : []; } catch (e) {}
+  if (!arr.length) arr = [...p.zh].map(ch => ({ origin: ch, pinyin: "", num: 0, isZh: /[一-鿿]/.test(ch) }));
+  arr.forEach((o, i) => {
+    if (o.isZh) {
+      const py = p.ov[i] || o.pinyin;
+      out.push({ ch: o.origin, py, t: p.ov[i] ? toneOf(py) : (o.num || 5) });
+    } else {
+      const last = out[out.length - 1];
+      // keep runs like "SQ830" or "OK" together; punctuation stays its own cell
+      if (last && !last.py && /[A-Za-z0-9:. ]/.test(o.origin) && /[A-Za-z0-9:. ]$/.test(last.ch)) last.ch += o.origin;
+      else out.push({ ch: o.origin, py: "", t: 0 });
+    }
+  });
+  p._cells = out;
+  return out;
+}
+const pyText = p => cells(p).map(c => c.py).filter(Boolean).join(" ");
+function zhHTML(p) {
+  return cells(p).map(c => c.py
+    ? `<span class="c t${c.t}"><b>${c.ch}</b><i>${c.py}</i></span>`
+    : `<span class="c x"><b>${esc(c.ch)}</b><i></i></span>`).join("");
+}
+
+/* ───────────── speech ───────────── */
+let voice = null, warnedVoice = false, playingBtn = null;
+function pickVoice() {
+  if (!("speechSynthesis" in window)) return;
+  const vs = speechSynthesis.getVoices();
+  voice = vs.find(v => /zh[-_]CN/i.test(v.lang) && /ting|婷|xiaoxiao|晓晓|yun/i.test(v.name))
+       || vs.find(v => /zh[-_]CN/i.test(v.lang))
+       || vs.find(v => /^cmn/i.test(v.lang))
+       || vs.find(v => /^zh/i.test(v.lang) && !/HK|yue/i.test(v.lang)) || null;
+  const el = $("#voiceName");
+  if (el) el.textContent = S.engine === "online"
+    ? "Online voice plays even when your iPhone is on silent. Needs internet. It uses Google Translate's free voice, which could change without notice — if it stops working, switch to \"This device\"."
+    : (voice ? `Using ${voice.name} (${voice.lang}). Works offline. iPhone mutes this voice when the phone is on silent.` : (vs.length ? "No Mandarin voice found on this device." : "Works offline. iPhone mutes this voice when the phone is on silent."));
+}
+if ("speechSynthesis" in window) { pickVoice(); speechSynthesis.onvoiceschanged = pickVoice; }
+// Two voices: "online" plays a short audio clip (plays even when an iPhone is on silent, needs internet);
+// "device" uses the phone/computer's built-in speech (works offline, but iPhone mutes it on silent).
+const clip = new Audio();
+try { if (navigator.audioSession) navigator.audioSession.type = "playback"; } catch (e) {}
+const onlineUrl = t => "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=zh-CN&q=" + encodeURIComponent(t.slice(0, 190));
+function stopAudio() {
+  try { clip.pause(); } catch (e) {}
+  if ("speechSynthesis" in window) speechSynthesis.cancel();
+  if (playingBtn) playingBtn.classList.remove("playing");
+}
+function speak(text, btn) {
+  stopAudio();
+  if (btn) { btn.classList.add("playing"); playingBtn = btn; }
+  const done = () => { if (btn) btn.classList.remove("playing"); };
+  if (S.engine === "online" && navigator.onLine !== false) {
+    clip.onended = done;
+    clip.onerror = () => { done(); toast("The online voice didn't load. Check your internet, or pick \"This device\" voice in settings."); };
+    clip.src = onlineUrl(text);
+    clip.defaultPlaybackRate = clip.playbackRate = S.slow ? 0.7 : 1;
+    clip.play().catch(err => { if (err && err.name !== "AbortError") clip.onerror(); });
+    return;
+  }
+  if (!("speechSynthesis" in window)) { done(); toast("This browser can't play audio. Try the online voice in settings."); return; }
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = "zh-CN"; if (voice) u.voice = voice;
+  u.rate = S.slow ? 0.6 : 0.9;
+  u.onend = u.onerror = done;
+  speechSynthesis.speak(u);
+  if (!voice && !warnedVoice && speechSynthesis.getVoices().length) { warnedVoice = true; toast("No Mandarin voice on this device. Try the online voice in settings."); }
+}
+
+/* ───────────── data ───────────── */
+let MODS = [], BY = {}, ALL = [], MINE = null;
+function loadMine() {
+  MINE = buildModule({ id: "mine", area: "mine", title: "My Phrases", zh: "我的短语", phrases: store.get("mt_mine_v1", "") });
+}
+function rebuildIndex() {
+  BY = {}; MODS.forEach(m => BY[m.id] = m); BY.mine = MINE;
+  ALL = MODS.flatMap(m => m.items).concat(MINE.items);
+}
+const knownIn = items => items.reduce((n, p) => n + (known.has(p.id) ? 1 : 0), 0);
+const isNew = m => m.added && (Date.now() - new Date(m.added + "T00:00:00").getTime()) < 30 * 864e5;
+
+/* ───────────── views ───────────── */
+const app = $("#app");
+const view = { level: "all", hideKnown: false };
+
+function rowHTML(p, showMod) {
+  const k = known.has(p.id);
+  return `<article class="row${k ? " is-known" : ""}" data-id="${p.id}">
+    <div class="en">
+      <p class="en-t">${esc(p.en)}</p>
+      <div class="meta"><span class="lvl ${p.lvl}">${LV[p.lvl]}</span>${showMod ? `<span class="mod-label">${esc(BY[p.mod].title)} · ${esc(p.group)}</span>` : ""}</div>
+      ${p.note ? `<div class="note" style="margin-top:6px">${esc(p.note)}</div>` : ""}
+    </div>
+    <button class="zh" data-act="say" aria-label="Play ${esc(p.zh)}">${zhHTML(p)}</button>
+    <div class="acts">
+      <button class="ic say" data-act="say" aria-label="Play audio">${ICON.say}</button>
+      <button class="ic tick" data-act="known" aria-pressed="${k}" aria-label="Mark as known">${ICON.tick}</button>
+    </div>
+  </article>`;
+}
+
+function renderHome() {
+  document.title = "Mandarin Talk";
+  const total = ALL.length, kn = knownIn(ALL);
+  const last = BY[store.get("mt_last_v1", "")];
+  const news = MT.changelog[0];
+  let h = `<section class="hero">
+    <div>
+      <h1>Speak up at work and on the road. <span>好好说。</span></h1>
+      <p>${fmt(MODS.reduce((n, m) => n + m.items.length, 0))} everyday phrases for aviation, business and travel — English, 中文 and pinyin side by side. Tap any Chinese line to hear it.</p>
+    </div>
+    <div class="overall">
+      <div class="num">${fmt(kn)} <small>/ ${fmt(total)}</small></div>
+      <div class="lab">phrases you know</div>
+      <div class="bar"><i style="width:${total ? kn / total * 100 : 0}%"></i></div>
+      <div class="row-btns"><button class="btn primary small" data-act="practice-all">${ICON.play} Quick practice</button></div>
+    </div>
+  </section>`;
+  if (news || last) h += `<div class="news">${news ? `<b>New</b><span>${esc(news.text)}</span>` : ""}${last ? `<a class="continue" href="#/m/${last.id}" style="margin-left:auto">Continue: ${esc(last.title)} →</a>` : ""}</div>`;
+  if (MT.failed.length) h += `<div class="warn">Couldn't load: ${MT.failed.map(esc).join(", ")}. Check the file names in modules/_list.js.</div>`;
+
+  const areas = MT.areas.concat(MODS.some(m => !MT.areas.find(a => a.id === m.area)) ? [{ id: "_other", title: "More", zh: "其他" }] : []);
+  areas.forEach(a => {
+    const mods = MODS.filter(m => a.id === "_other" ? !MT.areas.find(x => x.id === m.area) : m.area === a.id);
+    if (!mods.length) return;
+    const n = mods.reduce((s, m) => s + m.items.length, 0);
+    h += `<section class="area"><h2>${esc(a.title)} <span>${esc(a.zh || "")}</span><em>${fmt(n)} phrases</em></h2><div class="cards">`;
+    mods.forEach(m => h += cardHTML(m));
+    h += `</div></section>`;
+  });
+  h += `<section class="area"><h2>Your own <span>自己的</span></h2><div class="cards">${cardHTML(MINE, true)}</div></section>`;
+  app.innerHTML = h;
+}
+function cardHTML(m, mine) {
+  const n = m.items.length, k = knownIn(m.items);
+  return `<a class="card${mine ? " mine" : ""}" href="#/m/${m.id}">
+    <div class="zhT">${esc(m.zh)} ${isNew(m) ? '<span class="tag-new">New</span>' : ""}</div>
+    <div class="enT">${esc(m.title)}</div>
+    <div class="meta">${mine ? (n ? `${n} phrases you added` : "Add your own phrases") : `${n} phrases · ${m.groups.length} topics`}</div>
+    ${n ? `<div class="bar"><i style="width:${k / n * 100}%"></i></div><div class="foot"><span>${k} known</span><span>${Math.round(k / n * 100)}%</span></div>` : ""}
+  </a>`;
+}
+
+function visible(items) {
+  return items.filter(p => (view.level === "all" || p.lvl === view.level) && !(view.hideKnown && known.has(p.id)));
+}
+function renderModule(id) {
+  const m = BY[id];
+  if (!m) { location.hash = "#/"; return; }
+  if (id !== "mine") store.set("mt_last_v1", id);
+  document.title = m.title + " · Mandarin Talk";
+  const k = knownIn(m.items);
+  let h = `<div class="mhead">
+    <a class="back" href="#/">${ICON.back} All modules</a>
+    <div class="mtitle"><div><div class="zhT">${esc(m.zh)}</div><h1>${esc(m.title)}</h1></div><span class="grow"></span>
+      ${m.items.length ? `<button class="btn primary" data-act="practice">${ICON.play} Practise</button>` : ""}
+      ${id === "mine" ? `<button class="btn ghost" data-act="edit-mine">Edit list</button>` : ""}
+    </div>
+    <div class="mstats">${m.items.length} phrases · <span id="kCount">${k}</span> known</div>
+  </div>`;
+  if (id === "mine") h += mineEditorHTML(!m.items.length);
+  if (m.items.length) {
+    h += `<div class="filters"><div class="wrap" style="padding:0">
+      <div class="seg" id="lvlSeg">${["all", "E", "M", "H"].map(l => `<button data-lvl="${l}" aria-pressed="${view.level === l}">${l === "all" ? "All" : LV[l]}</button>`).join("")}</div>
+      <label class="switch">Hide known <input type="checkbox" id="hideKnown" ${view.hideKnown ? "checked" : ""}></label>
+      ${m.groups.length > 1 ? `<div class="jump">${m.groups.map((g, i) => `<button data-jump="g${i}">${esc(g.title)}</button>`).join("")}</div>` : ""}
+    </div></div>`;
+    let any = false;
+    m.groups.forEach((g, i) => {
+      const items = visible(g.items);
+      if (!items.length) return;
+      any = true;
+      h += `<section class="group" id="g${i}"><h3>${esc(g.title)} <span>${esc(g.zh)}</span><em>${items.length}</em></h3><div class="list">${items.map(p => rowHTML(p)).join("")}</div></section>`;
+    });
+    if (!any) h += `<div class="empty">Nothing to show with these filters. Try another level or turn off "Hide known".</div>`;
+  }
+  app.innerHTML = h;
+}
+function mineEditorHTML(open) {
+  return `<div class="editor" id="mineEditor" ${open ? "" : "hidden"}>
+    <p>One phrase per line: <code>English | 中文</code>. Add a level in front if you like (<code>E</code>, <code>M</code> or <code>H</code>), a tip at the end, and <code># Heading</code> lines to make groups. Pinyin fills in by itself.</p>
+    <textarea id="mineText" spellcheck="false" placeholder="# Crew room
+E | Good morning, everyone. | 大家早上好。
+M | Who is the purser today? | 今天的乘务长是谁？">${esc(store.get("mt_mine_v1", ""))}</textarea>
+    <div class="btns"><button class="btn primary" data-act="save-mine">Save</button><button class="btn ghost" data-act="copy-mine">Copy all</button></div>
+    <p style="margin:10px 0 0;font-size:12.5px;color:var(--muted)">Saved on this device only. Use "Copy all" to move them into a module file so they show up everywhere.</p>
+  </div>`;
+}
+
+let searchIndex = null;
+function renderSearch(q) {
+  document.title = "Search · Mandarin Talk";
+  if (!searchIndex) searchIndex = ALL.map(p => [p, (p.en + " " + (p.note || "")).toLowerCase(), p.zh, strip(pyText(p)), strip(pyText(p)).replace(/ /g, "")]);
+  const raw = q.trim(), ql = raw.toLowerCase(), qs = strip(raw).replace(/\s+/g, "");
+  const hits = searchIndex.filter(([p, en, zh, py, pyn]) => en.includes(ql) || zh.includes(raw) || (qs.length > 1 && pyn.includes(qs))).map(x => x[0]);
+  const shown = hits.slice(0, 150);
+  app.innerHTML = `<div class="mhead"><a class="back" href="#/" data-act="clear-search">${ICON.back} Back</a>
+    <div class="mtitle"><h1>“${esc(raw)}”</h1><span class="grow"></span>${hits.length ? `<button class="btn primary" data-act="practice-search">${ICON.play} Practise these</button>` : ""}</div>
+    <div class="mstats">${hits.length} match${hits.length === 1 ? "" : "es"}${hits.length > shown.length ? ` · showing first ${shown.length}` : ""}</div></div>
+    ${shown.length ? `<div class="list" style="margin-top:14px">${shown.map(p => rowHTML(p, true)).join("")}</div>` : `<div class="empty">No phrases match. Try an English word, Chinese characters, or pinyin without tones (e.g. <b>xingli</b>).</div>`}`;
+  renderSearch.hits = hits;
+}
+
+/* ───────────── router ───────────── */
+function route() {
+  const q = $("#q").value.trim();
+  if (q) return renderSearch(q);
+  const m = location.hash.match(/^#\/m\/([\w-]+)/);
+  if (m) renderModule(m[1]); else renderHome();
+}
+window.addEventListener("hashchange", () => { $("#q").value = ""; route(); window.scrollTo(0, 0); });
+let qT;
+$("#q").addEventListener("input", () => { clearTimeout(qT); qT = setTimeout(route, 120); });
+
+/* ───────────── clicks ───────────── */
+app.addEventListener("click", e => {
+  const b = e.target.closest("[data-act],[data-lvl],[data-jump]");
+  if (!b) return;
+  if (b.dataset.lvl) { view.level = b.dataset.lvl; route(); return; }
+  if (b.dataset.jump) { const g = document.getElementById(b.dataset.jump); if (g) g.scrollIntoView({ behavior: "smooth", block: "start" }); return; }
+  const act = b.dataset.act, row = b.closest(".row"), p = row && ALL.find(x => x.id === row.dataset.id);
+  if (act === "say" && p) speak(p.zh, row.querySelector(".say"));
+  else if (act === "known" && p) {
+    known.has(p.id) ? known.delete(p.id) : known.add(p.id); saveKnown();
+    const k = known.has(p.id);
+    row.classList.toggle("is-known", k); b.setAttribute("aria-pressed", k);
+    const kc = $("#kCount"); if (kc) { const m = BY[p.mod]; kc.textContent = knownIn(m.items); }
+  }
+  else if (act === "practice") { const m = BY[(location.hash.match(/^#\/m\/([\w-]+)/) || [])[1]]; if (m) startPractice(visible(m.items).length ? visible(m.items) : m.items, m.title); }
+  else if (act === "practice-all") startPractice(ALL, "All modules", 20);
+  else if (act === "practice-search") startPractice(renderSearch.hits || [], "Search");
+  else if (act === "clear-search") { $("#q").value = ""; }
+  else if (act === "edit-mine") { const ed = $("#mineEditor"); ed.hidden = !ed.hidden; if (!ed.hidden) $("#mineText").focus(); }
+  else if (act === "save-mine") {
+    store.set("mt_mine_v1", $("#mineText").value); loadMine(); rebuildIndex(); searchIndex = null;
+    toast(`Saved ${MINE.items.length} phrase${MINE.items.length === 1 ? "" : "s"}.`); route();
+  }
+  else if (act === "copy-mine") {
+    const t = $("#mineText").value;
+    (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(() => toast("Copied."), () => { $("#mineText").select(); toast("Selected — press copy."); });
+  }
+});
+app.addEventListener("change", e => { if (e.target.id === "hideKnown") { view.hideKnown = e.target.checked; route(); } });
+
+/* ───────────── settings ───────────── */
+function applySettings() {
+  document.body.classList.toggle("no-py", !S.pinyin);
+  document.body.classList.toggle("tones", S.tones);
+  if (S.theme === "auto") document.documentElement.removeAttribute("data-theme"); else document.documentElement.dataset.theme = S.theme;
+  document.querySelectorAll("[data-set]").forEach(i => i.checked = !!S[i.dataset.set]);
+  document.querySelectorAll("#themeSeg button").forEach(b => b.setAttribute("aria-pressed", b.dataset.theme === S.theme));
+  document.querySelectorAll("#engSeg button").forEach(b => b.setAttribute("aria-pressed", b.dataset.eng === S.engine));
+  pickVoice();
+  const dark = isDark();
+  $("#themeBtn").innerHTML = dark
+    ? '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>'
+    : '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg>';
+  $("#themeBtn").title = dark ? "Light mode" : "Dark mode";
+}
+const darkMQ = window.matchMedia("(prefers-color-scheme: dark)");
+const isDark = () => S.theme === "dark" || (S.theme === "auto" && darkMQ.matches);
+if (darkMQ.addEventListener) darkMQ.addEventListener("change", () => applySettings());
+$("#themeBtn").addEventListener("click", () => { S.theme = isDark() ? "light" : "dark"; saveS(); applySettings(); });
+const sheet = $("#sheet"), sheetBg = $("#sheetBg");
+const toggleSheet = open => { sheet.classList.toggle("open", open); sheetBg.classList.toggle("open", open); };
+$("#gear").addEventListener("click", () => { pickVoice(); toggleSheet(!sheet.classList.contains("open")); });
+sheetBg.addEventListener("click", () => toggleSheet(false));
+sheet.addEventListener("change", e => { const k = e.target.dataset.set; if (k) { S[k] = e.target.checked; saveS(); applySettings(); } });
+$("#engSeg").addEventListener("click", e => { const b = e.target.closest("button"); if (b) { S.engine = b.dataset.eng; saveS(); applySettings(); speak("你好"); } });
+$("#themeSeg").addEventListener("click", e => { const b = e.target.closest("button"); if (b) { S.theme = b.dataset.theme; saveS(); applySettings(); } });
+$("#resetBtn").addEventListener("click", () => {
+  if (confirm("Clear all \"known\" marks on this device? Your own phrases are kept.")) { known.clear(); saveKnown(); toggleSheet(false); route(); toast("Progress cleared."); }
+});
+
+/* ───────────── practice ───────────── */
+const pr = { deck: [], i: 0, shown: false, got: 0, title: "" };
+function shuffle(a) { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+function startPractice(items, title, limit) {
+  if (!items.length) return;
+  const unknown = items.filter(p => !known.has(p.id));
+  const pool = shuffle((unknown.length ? unknown : items).slice());
+  pr.deck = limit ? pool.slice(0, limit) : pool.slice(0, 30);
+  pr.i = 0; pr.got = 0; pr.shown = false; pr.title = title; pr.src = [items, title, limit];
+  $("#pr").classList.add("open"); document.body.style.overflow = "hidden";
+  drawCard();
+}
+function closePractice() { $("#pr").classList.remove("open"); document.body.style.overflow = ""; stopAudio(); route(); }
+function drawCard() {
+  const flash = $("#flash"), btns = $("#prBtns"), n = pr.deck.length;
+  document.querySelectorAll("#dirSeg button").forEach(b => b.setAttribute("aria-pressed", b.dataset.dir === S.dir));
+  $("#prBar").style.width = (pr.i / n * 100) + "%";
+  if (pr.i >= n) {
+    $("#prCount").textContent = pr.title;
+    flash.className = "flash done";
+    flash.innerHTML = `<h2>Round done 🎉</h2><p>${pr.got} of ${n} marked as known.</p>`;
+    btns.innerHTML = `<button class="btn ghost" data-pr="close">Close</button><button class="btn primary" data-pr="again-round">Another round</button>`;
+    return;
+  }
+  const p = pr.deck[pr.i];
+  $("#prCount").textContent = `${pr.i + 1} / ${n}`;
+  flash.className = "flash";
+  const say = `<button class="say-big" data-pr="say">${ICON.say} Listen</button>`;
+  const zhBlock = (withPy) => `<div class="zh${withPy && S.pinyin ? "" : " no-py-local"}">${zhHTML(p)}</div>`;
+  let html;
+  if (S.dir === "en") {
+    html = `<div><span class="lvl ${p.lvl}">${LV[p.lvl]}</span></div><div class="q-en">${esc(p.en)}</div>`;
+    if (pr.shown) html += `<div class="divider"></div>${zhBlock(true)}${say}${p.note ? `<div class="note">${esc(p.note)}</div>` : ""}`;
+  } else {
+    html = `<div><span class="lvl ${p.lvl}">${LV[p.lvl]}</span></div>${zhBlock(pr.shown)}${say}`;
+    if (pr.shown) html += `<div class="divider"></div><div class="q-en">${esc(p.en)}</div>${p.note ? `<div class="note">${esc(p.note)}</div>` : ""}`;
+  }
+  flash.innerHTML = html;
+  flash.querySelectorAll(".no-py-local .c i").forEach(i => i.style.visibility = "hidden");
+  btns.innerHTML = pr.shown
+    ? `<button class="btn ghost" data-pr="again">Again</button><button class="btn got" data-pr="got">${ICON.tick} Got it</button>`
+    : `<button class="btn primary" data-pr="show">Show answer</button>`;
+  if (S.autoplay && (pr.shown ? S.dir === "en" : S.dir === "zh")) speak(p.zh, flash.querySelector(".say-big"));
+}
+function prAct(a) {
+  const p = pr.deck[pr.i];
+  if (a === "show") { pr.shown = true; drawCard(); }
+  else if (a === "again" && pr.shown) { pr.deck.splice(pr.i, 1); pr.deck.splice(Math.min(pr.i + 3, pr.deck.length), 0, p); pr.shown = false; drawCard(); }
+  else if (a === "got" && pr.shown) { known.add(p.id); saveKnown(); pr.got++; pr.i++; pr.shown = false; drawCard(); }
+  else if (a === "say" && p) speak(p.zh, document.querySelector(".say-big"));
+  else if (a === "close") closePractice();
+  else if (a === "again-round") startPractice(...pr.src);
+}
+$("#pr").addEventListener("click", e => { const b = e.target.closest("[data-pr]"); if (b) prAct(b.dataset.pr); });
+$("#prClose").addEventListener("click", closePractice);
+$("#dirSeg").addEventListener("click", e => { const b = e.target.closest("button"); if (b) { S.dir = b.dataset.dir; saveS(); pr.shown = false; drawCard(); } });
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape") { if ($("#pr").classList.contains("open")) closePractice(); else toggleSheet(false); return; }
+  if (!$("#pr").classList.contains("open") || e.target.closest("input,textarea")) return;
+  if (e.key === " " || e.key === "Enter") { e.preventDefault(); prAct(pr.shown ? "got" : "show"); }
+  else if (e.key === "1") prAct("again");
+  else if (e.key === "2") prAct("got");
+  else if (e.key.toLowerCase() === "p") prAct("say");
+});
+
+/* ───────────── boot: load module files ───────────── */
+function start() {
+  MODS = MT.files.map(f => MT.modules.find(m => m.id === f) ).filter(Boolean)
+    .concat(MT.modules.filter(m => !MT.files.includes(m.id)))
+    .map(buildModule);
+  loadMine(); rebuildIndex(); applySettings(); route();
+}
+let pending = MT.files.length;
+if (!pending) start();
+MT.files.forEach(f => {
+  const s = document.createElement("script");
+  s.src = "modules/" + f + ".js"; s.async = false;
+  s.onload = () => { if (!MT.modules.some(m => m.id === f)) MT.failed.push(f + ".js (id should be \"" + f + "\")"); if (--pending === 0) start(); };
+  s.onerror = () => { MT.failed.push(f + ".js"); if (--pending === 0) start(); };
+  document.head.appendChild(s);
+});
+})();
+</script>
+</body>
+</html>
