@@ -275,7 +275,7 @@ footer{color:var(--muted);font-size:12.5px;text-align:center;padding:40px 16px c
 window.MT = { modules: [], failed: [], areas: [], files: [], changelog: [],
   module(def) { if (!this.modules.some(m => m.id === def.id)) this.modules.push(def); } };
 </script>
-<script src="modules/_list.js"></script>
+<script src="modules/list.js"></script>
 <script>
 (function () {
 "use strict";
@@ -465,7 +465,7 @@ function renderHome() {
     </div>
   </section>`;
   if (news || last) h += `<div class="news">${news ? `<b>New</b><span>${esc(news.text)}</span>` : ""}${last ? `<a class="continue" href="#/m/${last.id}" style="margin-left:auto">Continue: ${esc(last.title)} →</a>` : ""}</div>`;
-  if (MT.failed.length) h += `<div class="warn">Couldn't load: ${MT.failed.map(esc).join(", ")}. Check the file names in modules/_list.js.</div>`;
+  if (MT.failed.length) h += `<div class="warn">Couldn't load: ${MT.failed.map(esc).join(", ")}. Check the file names in modules/list.js.</div>`;
 
   const areas = MT.areas.concat(MODS.some(m => !MT.areas.find(a => a.id === m.area)) ? [{ id: "_other", title: "More", zh: "其他" }] : []);
   areas.forEach(a => {
