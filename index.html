@@ -18,6 +18,7 @@
   --jade:#2a7553; --jade-soft:#dfeee5; --amber:#8a5d00; --amber-soft:#f4e8cd;
   --t1:#c62f2a; --t2:#b87200; --t3:#23824c; --t4:#2a5fc4; --t5:#8b857c;
   --shadow:0 1px 2px rgba(40,30,20,.05),0 6px 20px rgba(40,30,20,.05);
+  --wash:#2b2620; --paper:var(--bg);
   --radius:14px;
   --zh:"PingFang SC","Hiragino Sans GB","Noto Sans SC","Microsoft YaHei",sans-serif;
   --zh-serif:"Songti SC","STSong","Noto Serif SC","SimSun",serif;
@@ -28,7 +29,7 @@
     --bg:#121110; --surface:#1b1a18; --surface-2:#262421; --ink:#efebe4; --ink-2:#cfc8bd; --muted:#9d968b; --line:#302d29;
     --accent:#e0594d; --accent-ink:#fff; --accent-soft:#3b201c;
     --jade:#5cc08f; --jade-soft:#1a3127; --amber:#e3b252; --amber-soft:#382d16;
-    --t1:#ff7366; --t2:#f2b440; --t3:#5fcb8f; --t4:#79a9ff; --t5:#9a948a;
+    --t1:#ff7366; --t2:#f2b440; --t3:#5fcb8f; --t4:#79a9ff; --t5:#9a948a; --wash:#d8d0c2;
     --shadow:0 1px 2px rgba(0,0,0,.3),0 6px 20px rgba(0,0,0,.25);
     color-scheme:dark;
   }
@@ -37,7 +38,7 @@
   --bg:#121110; --surface:#1b1a18; --surface-2:#262421; --ink:#efebe4; --ink-2:#cfc8bd; --muted:#9d968b; --line:#302d29;
   --accent:#e0594d; --accent-ink:#fff; --accent-soft:#3b201c;
   --jade:#5cc08f; --jade-soft:#1a3127; --amber:#e3b252; --amber-soft:#382d16;
-  --t1:#ff7366; --t2:#f2b440; --t3:#5fcb8f; --t4:#79a9ff; --t5:#9a948a;
+  --t1:#ff7366; --t2:#f2b440; --t3:#5fcb8f; --t4:#79a9ff; --t5:#9a948a; --wash:#d8d0c2;
   --shadow:0 1px 2px rgba(0,0,0,.3),0 6px 20px rgba(0,0,0,.25);
   color-scheme:dark;
 }
@@ -65,7 +66,7 @@ svg{display:block}
 @media (max-width:560px){.brand b{display:none}}
 
 /* ── home ── */
-.hero{padding:34px 0 8px;display:grid;grid-template-columns:1fr auto;gap:20px;align-items:end}
+.hero{padding:0 0 8px;display:grid;grid-template-columns:1fr auto;gap:20px;align-items:end}
 .hero h1{margin:0;font-size:clamp(26px,4.4vw,36px);line-height:1.15;letter-spacing:-.02em;font-weight:700}
 .hero h1 span{font-family:var(--zh-serif);font-weight:600;color:var(--accent)}
 .hero p{margin:10px 0 0;color:var(--ink-2);max-width:56ch}
@@ -110,6 +111,8 @@ svg{display:block}
 .mtitle .zhT{font:600 clamp(24px,4vw,32px)/1.15 var(--zh-serif);color:var(--accent)}
 .mtitle .grow{flex:1}
 .mstats{color:var(--muted);font-size:14px;margin-top:6px}
+.mbtns{display:flex;gap:8px;margin-top:14px}
+.mbtns:empty{display:none}
 .filters{position:sticky;top:calc(60px + env(safe-area-inset-top));z-index:10;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);padding:10px 0;border-bottom:1px solid var(--line);margin-top:14px}
 .filters .wrap{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
 .seg{display:inline-flex;background:var(--surface-2);border-radius:10px;padding:3px}
@@ -210,6 +213,31 @@ svg{display:block}
 .done h2{margin:0;font-size:26px}
 .done p{margin:0;color:var(--ink-2)}
 
+/* ── ink-wash art ── */
+.art svg{display:block;width:100%;height:100%}
+.art .w{fill:var(--wash)} .art .ws{stop-color:var(--wash)} .art .pp{fill:var(--paper)} .art .pps{stop-color:var(--paper)}
+.art .seal{fill:var(--accent)} .art .st{fill:none;stroke:var(--wash)}
+.bgart{position:fixed;left:0;right:0;bottom:0;height:42vh;z-index:-1;pointer-events:none;opacity:.9}
+.hero,.mhead{position:relative}
+.hero>*,.mhead>*{position:relative;z-index:1}
+.hero-band{height:230px;margin:0 -16px -40px;
+  -webkit-mask-image:linear-gradient(to right,transparent,#000 12%,#000 88%,transparent),linear-gradient(#000 55%,transparent);-webkit-mask-composite:source-in;
+  mask-image:linear-gradient(to right,transparent,#000 12%,#000 88%,transparent),linear-gradient(#000 55%,transparent);mask-composite:intersect}
+.mhead-art{position:absolute!important;z-index:0!important;top:0;bottom:-10px;right:-16px;width:62%;pointer-events:none;
+  -webkit-mask-image:linear-gradient(to right,transparent,#000 40%,#000 90%,transparent),linear-gradient(#000 55%,transparent);
+  -webkit-mask-composite:source-in;
+  mask-image:linear-gradient(to right,transparent,#000 40%,#000 90%,transparent),linear-gradient(#000 55%,transparent);
+  mask-composite:intersect}
+.card{overflow:hidden}
+.card-art{--paper:var(--surface);height:92px;margin:-16px -16px 12px;border-bottom:1px solid var(--line)}
+.card-art svg{transition:transform .5s}
+.card:hover .card-art svg{transform:scale(1.04)}
+.pr-art{position:absolute;left:0;right:0;bottom:0;height:40vh;pointer-events:none;z-index:0}
+.pr>*:not(.pr-art){position:relative;z-index:1}
+@media (max-width:700px){
+  .hero-band{height:150px;margin-bottom:-24px}
+  .mhead-art{width:90%;opacity:.55}
+}
 .toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom));transform:translate(-50%,20px);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:12px;font-size:14px;opacity:0;pointer-events:none;transition:all .25s;z-index:60;max-width:calc(100vw - 32px);text-align:center}
 .toast.show{opacity:1;transform:translate(-50%,0)}
 .warn{background:var(--accent-soft);color:var(--accent);border-radius:12px;padding:10px 14px;margin-top:16px;font-size:14px}
@@ -233,6 +261,7 @@ footer{color:var(--muted);font-size:12.5px;text-align:center;padding:40px 16px c
   </div>
 </header>
 
+<div class="bgart art" id="bgart"></div>
 <main id="app" class="wrap"></main>
 <footer>Pinyin is generated automatically. Chinese voice comes from your device.</footer>
 
@@ -255,6 +284,7 @@ footer{color:var(--muted);font-size:12.5px;text-align:center;padding:40px 16px c
 </div>
 
 <div class="pr" id="pr" role="dialog" aria-label="Practice">
+  <div class="pr-art art" id="prArt"></div>
   <div class="pr-top">
     <button class="icon-btn" id="prClose" aria-label="Close practice"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
     <span class="count" id="prCount"></span>
@@ -270,6 +300,7 @@ footer{color:var(--muted);font-size:12.5px;text-align:center;padding:40px 16px c
 <div class="toast" id="toast"></div>
 
 <script src="lib/pinyin-pro.js"></script>
+<script src="lib/art.js"></script>
 <script>
 // Modules call MT.module({...}) when they load.
 window.MT = { modules: [], failed: [], areas: [], files: [], changelog: [],
@@ -427,6 +458,9 @@ function rebuildIndex() {
 const knownIn = items => items.reduce((n, p) => n + (known.has(p.id) ? 1 : 0), 0);
 const isNew = m => m.added && (Date.now() - new Date(m.added + "T00:00:00").getTime()) < 30 * 864e5;
 
+/* ───────────── art ───────────── */
+const art = (mod, opt) => window.MTArt ? MTArt.scene(MTArt.pick(mod), opt) : "";
+
 /* ───────────── views ───────────── */
 const app = $("#app");
 const view = { level: "all", hideKnown: false };
@@ -452,7 +486,8 @@ function renderHome() {
   const total = ALL.length, kn = knownIn(ALL);
   const last = BY[store.get("mt_last_v1", "")];
   const news = MT.changelog[0];
-  let h = `<section class="hero">
+  let h = `<div class="art hero-band">${art({ id: "home" }, { brush: true })}</div>
+  <section class="hero">
     <div>
       <h1>Speak up at work and on the road. <span>好好说。</span></h1>
       <p>${fmt(MODS.reduce((n, m) => n + m.items.length, 0))} everyday phrases for aviation, business and travel — English, 中文 and pinyin side by side. Tap any Chinese line to hear it.</p>
@@ -482,6 +517,7 @@ function renderHome() {
 function cardHTML(m, mine) {
   const n = m.items.length, k = knownIn(m.items);
   return `<a class="card${mine ? " mine" : ""}" href="#/m/${m.id}">
+    <div class="art card-art">${art(m)}</div>
     <div class="zhT">${esc(m.zh)} ${isNew(m) ? '<span class="tag-new">New</span>' : ""}</div>
     <div class="enT">${esc(m.title)}</div>
     <div class="meta">${mine ? (n ? `${n} phrases you added` : "Add your own phrases") : `${n} phrases · ${m.groups.length} topics`}</div>
@@ -499,12 +535,14 @@ function renderModule(id) {
   document.title = m.title + " · Mandarin Talk";
   const k = knownIn(m.items);
   let h = `<div class="mhead">
+    <div class="art mhead-art">${art(m, { brush: true })}</div>
     <a class="back" href="#/">${ICON.back} All modules</a>
-    <div class="mtitle"><div><div class="zhT">${esc(m.zh)}</div><h1>${esc(m.title)}</h1></div><span class="grow"></span>
+    <div class="mtitle"><div><div class="zhT">${esc(m.zh)}</div><h1>${esc(m.title)}</h1></div></div>
+    <div class="mstats">${m.items.length} phrases · <span id="kCount">${k}</span> known</div>
+    <div class="mbtns">
       ${m.items.length ? `<button class="btn primary" data-act="practice">${ICON.play} Practise</button>` : ""}
       ${id === "mine" ? `<button class="btn ghost" data-act="edit-mine">Edit list</button>` : ""}
     </div>
-    <div class="mstats">${m.items.length} phrases · <span id="kCount">${k}</span> known</div>
   </div>`;
   if (id === "mine") h += mineEditorHTML(!m.items.length);
   if (m.items.length) {
@@ -690,6 +728,7 @@ function start() {
   MODS = MT.files.map(f => MT.modules.find(m => m.id === f) ).filter(Boolean)
     .concat(MT.modules.filter(m => !MT.files.includes(m.id)))
     .map(buildModule);
+  if (window.MTArt) { $("#bgart").innerHTML = MTArt.backdrop(); $("#prArt").innerHTML = MTArt.backdrop(); }
   loadMine(); rebuildIndex(); applySettings(); route();
 }
 let pending = MT.files.length;
