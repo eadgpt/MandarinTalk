@@ -6,6 +6,14 @@ MT.module({
   title: "Getting Around",
   zh: "出行交通",
   added: "2026-10-02",
+  keys: `
+Directions | 往左拐 turn left · 往右拐 turn right · 一直走 straight on. 往 = towards.
+站 = station or stop | 地铁站 metro · 火车站 railway · 下一站 next stop · 坐几站？ how many stops?
+Taxi kit | 请打表 use the meter · 发票 receipt · 尾号 the last four digits of your phone, which Didi drivers ask for.
+高铁 seats | 二等座 standard · 一等座 first · 商务座 business, the top class.
+改签 and 退票 | 改签 = change a ticket, 退票 = refund. Same words for trains and flights.
+Passport is your ticket | Chinese trains are ticketless. You book with your passport and show it at the gate.
+`,
   phrases: `
 # Asking directions | 问路
 E | Excuse me, may I ask… | 请问…… | Polite way to start a question

@@ -6,6 +6,14 @@ MT.module({
   title: "Negotiation & Deals",
   zh: "谈判与合作",
   added: "2026-10-02",
+  keys: `
+Discounts run backwards | The number is what you PAY. 打九折 = pay 90% (10% off) · 打八折 = 20% off · 九五折 = 5% off.
+贵公司 and 我方 | 贵公司 = your (honoured) company. 我方 = our side.
+得 is děi here | 我得跟总部商量 — "I must check with head office". 得 is děi when it means "must".
+Buying time | 我们需要考虑一下 (we need to think it over) is a pause, not a no.
+The chop seals it | A Chinese contract is not final until it carries the company seal: 公章 gōngzhāng.
+Deal words | 报价 quote · 让步 concession · 成交 deal done · 合同 contract · 违约金 penalty.
+`,
   phrases: `
 # Opening the discussion | 开场
 M | We very much hope to work with your company. | 我们很希望和贵公司合作。 | 贵公司 = your (respected) company

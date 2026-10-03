@@ -8,6 +8,14 @@ MT.module({
   title: "Airport & Check-in",
   zh: "机场与值机",
   added: "2026-10-02",
+  keys: `
+The journey in four words | 值机 check in → 安检 security → 登机 board → 转机 transfer. 机 = aircraft.
+托运 or 随身 | 托运 tuōyùn = checked into the hold. 随身 suíshēn = "with the body" → carry-on. Power banks and lithium batteries: 随身 only.
+口 = an opening | 登机口 gate ("board-aircraft mouth") · 出口 exit · 入口 entrance.
+When things go wrong | 延误 delayed · 取消 cancelled · 改签 rebook · 退票 refund.
+请 + verb | 请出示 please show · 请稍等 please wait · 请通过 please walk through. 请 makes any instruction polite.
+Two sizes of sorry | 不好意思 for small things. 给您带来不便，我们深表歉意 for real disruption.
+`,
   phrases: `
 # Check-in counter | 值机柜台
 E | Good morning. Where are you flying to today? | 早上好，您今天飞哪里？

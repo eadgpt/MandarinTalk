@@ -6,6 +6,14 @@ MT.module({
   title: "Food, Shopping & Help",
   zh: "餐饮、购物与求助",
   added: "2026-10-02",
+  keys: `
+Getting the bill | 买单 or 结账 — both mean "the bill, please".
+Scan to pay | 扫码 = scan the code. 微信支付 WeChat Pay and 支付宝 Alipay are taken almost everywhere.
+A or B? Use 还是 | 热的还是冰的？ hot or iced? 在这里吃还是带走？ eat in or take away?
+Bargaining | 能便宜一点吗？ — "a bit cheaper?" 一点 (a little) softens any request.
+How many people? | Staff ask 几位？ Answer with number + 位: 两位, 四位.
+Emergency numbers | 110 police · 120 ambulance · 119 fire. 1 is said yāo: yāo-yāo-líng.
+`,
   phrases: `
 # Eating out | 点餐
 E | A table for two, please. | 两位。 | The staff ask 几位？ (how many people?)

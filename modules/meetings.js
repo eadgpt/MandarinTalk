@@ -6,6 +6,14 @@ MT.module({
   title: "Meetings & Introductions",
   zh: "会议与介绍",
   added: "2026-10-02",
+  keys: `
+贵 = "your honoured" | 您贵姓？ your surname? · 贵公司 your company. Answer plainly, 我姓王 — never use 贵 about yourself.
+Modest replies | Praised? Say 哪里哪里 ("where, where") or 过奖了 ("you over-praise me").
+Give a view softly | 我觉得… I feel · 我认为… I think (firmer) · 我建议… I suggest.
+Order your points | 首先 first · 其次 second · 最后 finally.
+同比 vs 环比 | 同比 = against the same period last year. 环比 = against the previous period.
+"Have you eaten?" | 您吃饭了吗？ is a greeting, like "how are you". Answer 吃了, then ask back.
+`,
   phrases: `
 # Introductions | 自我介绍
 E | Nice to meet you. | 很高兴认识您。

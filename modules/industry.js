@@ -6,6 +6,14 @@ MT.module({
   title: "Aviation Industry",
   zh: "航空业务",
   added: "2026-10-02",
+  keys: `
+Network words | 航线 route · 航点 destination · 航班 flight · 执飞 operate a flight. 航 = to sail or fly.
+Numbers bosses ask for | 客座率 load factor · 准点率 on-time rate · 收益 yield. 率 = rate.
+Why we're late | 天气 weather · 流量控制 flow control · 机械故障 technical fault · 前序航班 late inbound aircraft.
+机 = aircraft | 机长 captain · 机组 crew · 机务 engineering · 机队 fleet · 机型 type · 机位 stand · 机坪 ramp.
+Crew slang | 备份 standby · 外站 outstation · 红眼航班 red-eye · 倒时差 getting over jet lag.
+复 = again | 复盘 review what happened · 复训 recurrent training.
+`,
   phrases: `
 # Airline business | 航空公司业务
 M | Which airline do you work for? | 您在哪家航空公司工作？

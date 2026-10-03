@@ -6,6 +6,14 @@ MT.module({
   title: "Business Dining & Etiquette",
   zh: "商务宴请与礼仪",
   added: "2026-10-02",
+  keys: `
+Seat of honour | 上座 faces the door and is furthest from it. Wait to be shown where to sit.
+Toasting | 干杯 = "dry the cup". Clink with your glass lower than a senior person's.
+Not drinking? | 我以茶代酒 — "tea in place of wine". Fully accepted.
+The gracious toast | 我干了，您随意 — "I'll finish mine, you drink as you please."
+Lucky and unlucky | 鱼 fish sounds like 余 surplus: good. 送钟 (give a clock) sounds like 送终: never.
+Gift ritual | Giver says 一点心意 (a small token). Receiver says 您太破费了 (you spent too much).
+`,
   phrases: `
 # Invitations | 邀请
 M | We'd like to take you to dinner tonight. | 今晚我们想请您吃饭。

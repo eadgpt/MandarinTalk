@@ -6,6 +6,14 @@ MT.module({
   title: "Hotel",
   zh: "酒店住宿",
   added: "2026-10-02",
+  keys: `
+Room types | 单人间 single · 双人间 twin · 大床房 one big bed · 套房 suite. 间 and 房 both mean room.
+In and out | 入住 check in · 退房 check out ("return the room") · 续住 stay longer.
+Money words | 押金 deposit · 发票 official invoice · 报销 claim expenses.
+Ask for the 发票 | For company claims you need a 发票 with the company name as the 抬头. Ask at check-out.
+Room numbers | Read digit by digit, and 1 is yāo: 1208 = yāo èr líng bā.
+请勿 = please do not | The formal wording on signs: 请勿打扰 do not disturb · 请勿吸烟 no smoking.
+`,
   phrases: `
 # Booking | 预订
 M | I'd like to book a room. | 我想订一个房间。

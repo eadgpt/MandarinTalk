@@ -6,6 +6,14 @@ MT.module({
   title: "Phone, Email & Scheduling",
   zh: "电话、邮件与日程",
   added: "2026-10-02",
+  keys: `
+Phone hello | On the phone 喂 is said wéi, with a rising tone.
+1 = yāo | In phone, room and flight numbers, 1 is read yāo, not yī, so it can't be misheard as 7 (qī).
+Days are numbers | 周一 Monday to 周六 Saturday are just one to six. Sunday is 周日. 上周 last week · 下周 next week.
+Big to small | Dates and times run month → day → part of day → hour: 十月四号下午三点.
+辛苦了 | "You've worked hard." The all-purpose thank-you to colleagues, drivers and service staff.
+Email frame | Open with 尊敬的王先生： or 王总，您好： and close with 祝好！
+`,
   phrases: `
 # Phone calls | 打电话
 E | Hello? | 喂[wéi]？ | Phone hello is said wéi
