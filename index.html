@@ -8,6 +8,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="referrer" content="no-referrer"><!-- the online voice refuses requests that name another website -->
 <meta name="apple-mobile-web-app-title" content="Mandarin Talk">
+<link rel="apple-touch-icon" href="apple-touch-icon.png"><!-- icon used by iPhone "Add to Home Screen" -->
 <meta name="theme-color" content="#f6f3ed" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#121110" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23b8322a'/%3E%3Ctext x='32' y='45' font-size='38' text-anchor='middle' fill='white' font-family='PingFang SC,Hiragino Sans GB,sans-serif'%3E说%3C/text%3E%3C/svg%3E">
@@ -173,7 +174,8 @@ svg{display:block}
 .sheet .opt{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--line);font-size:calc(14px*var(--fs))}
 .sheet .opt:last-of-type{border-bottom:0}
 .sheet .voice{font-size:max(12px,calc(12.5px*var(--fs)));color:var(--muted);margin-top:8px}
-.danger{color:var(--accent);font-weight:600;font-size:calc(14px*var(--fs));margin-top:12px}
+.danger{display:block;color:var(--accent);font-weight:600;font-size:calc(14px*var(--fs));margin-top:14px;text-align:left}
+.danger small{display:block;font-weight:400;color:var(--muted);font-size:max(12px,calc(12.5px*var(--fs)));margin-top:1px}
 
 /* ── practice ── */
 .pr{position:fixed;inset:0;z-index:50;background:var(--bg);display:none;flex-direction:column;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
@@ -407,7 +409,9 @@ body{padding-bottom:calc(66px + env(safe-area-inset-bottom))}
   <label class="opt switch">Slow voice <input type="checkbox" data-set="slow"></label>
   <label class="opt switch">Auto-play in practice <input type="checkbox" data-set="autoplay"></label>
   <div class="voice" id="voiceName"></div>
-  <button class="danger" id="resetBtn">Reset progress</button>
+  <h4>Start again</h4>
+  <button class="danger" id="resetBtn">Reset progress<small>Back to Level 1. Keeps favourites, your own phrases and settings.</small></button>
+  <button class="danger" id="eraseBtn">Erase everything<small>Like a brand-new user: also removes favourites, your own phrases and settings.</small></button>
 </div>
 
 <div class="pr" id="pr" role="dialog" aria-label="Practice">
@@ -1063,8 +1067,24 @@ sheet.addEventListener("change", e => { const k = e.target.dataset.set; if (k) {
 $("#engSeg").addEventListener("click", e => { const b = e.target.closest("button"); if (b) { S.engine = b.dataset.eng; saveS(); applySettings(); speak("你好"); } });
 $("#fsSeg").addEventListener("click", e => { const b = e.target.closest("button"); if (b) { S.fs = FS[Math.max(0, Math.min(FS.length - 1, fsIndex() + (+b.dataset.fs)))]; saveS(); applySettings(); } });
 $("#themeSeg").addEventListener("click", e => { const b = e.target.closest("button"); if (b) { S.theme = b.dataset.theme; saveS(); applySettings(); } });
+// Reset progress: everything that was earned or remembered about where you were — known marks, points, level,
+// streak, daily counts, medals, "jump back in" and the topic you were on. Favourites, own phrases and settings stay.
 $("#resetBtn").addEventListener("click", () => {
-  if (confirm("Clear all \"known\" marks on this device? Your own phrases are kept.")) { known.clear(); saveKnown(); toggleSheet(false); route(); toast("Progress cleared."); }
+  if (!confirm("Reset all progress on this device?\n\nKnown marks, points, level, streak and medals go back to zero. Favourites, your own phrases and settings are kept.")) return;
+  known.clear(); saveKnown();
+  G.days = {}; G.reviews = 0; saveG(); countedToday.clear();
+  Object.keys(tabState).forEach(k => delete tabState[k]); store.set("mt_tab_v1", tabState);
+  try { localStorage.removeItem("mt_last_v1"); } catch (e) {}
+  Object.assign(view, { level: "all", hideKnown: false, cat: "all", favTab: null });
+  toggleSheet(false);
+  if (location.hash && location.hash !== "#/") location.hash = "#/"; else { route(); window.scrollTo(0, 0); }
+  toast("Progress reset. Back to Level 1.");
+});
+// Erase everything: remove all of this app's saved data and start up fresh, exactly as a new user sees it.
+$("#eraseBtn").addEventListener("click", () => {
+  if (!confirm("Erase everything on this device?\n\nProgress, favourites, your own phrases and settings will all be removed. This cannot be undone.")) return;
+  try { Object.keys(localStorage).filter(k => k.startsWith("mt_")).forEach(k => localStorage.removeItem(k)); } catch (e) {}
+  location.hash = "#/"; location.reload();
 });
 
 /* ───────────── practice ───────────── */
