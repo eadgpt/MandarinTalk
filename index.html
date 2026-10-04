@@ -67,18 +67,8 @@ svg{display:block}
 @media (max-width:560px){.brand b{display:none}}
 
 /* ── home ── */
-.hero{padding:0 0 8px;display:grid;grid-template-columns:1fr auto;gap:20px;align-items:end}
-.hero h1{margin:0;font-size:calc(clamp(26px,4.4vw,36px)*var(--fs));line-height:1.15;letter-spacing:-.02em;font-weight:700}
-.hero h1 span{font-family:var(--zh-serif);font-weight:600;color:var(--accent)}
-.hero p{margin:10px 0 0;color:var(--ink-2);max-width:56ch}
-.overall{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;min-width:230px;box-shadow:var(--shadow)}
-.overall .num{font-size:calc(26px*var(--fs));font-weight:700;letter-spacing:-.02em}
-.overall .num small{font-size:calc(14px*var(--fs));color:var(--muted);font-weight:500}
-.overall .lab{font-size:max(12px,calc(13px*var(--fs)));color:var(--muted)}
 .bar{height:6px;border-radius:6px;background:var(--surface-2);overflow:hidden;margin-top:10px}
 .bar i{display:block;height:100%;background:var(--jade);border-radius:6px;transition:width .4s}
-.overall .row-btns{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
-@media (max-width:700px){.hero{grid-template-columns:1fr}.overall{min-width:0}}
 .news{margin:18px 0 4px;display:flex;gap:10px;align-items:baseline;font-size:max(12px,calc(13px*var(--fs)));color:var(--ink-2);flex-wrap:wrap}
 .news b{color:var(--accent);font-weight:600;font-size:max(12px,calc(12px*var(--fs)));letter-spacing:.06em;text-transform:uppercase}
 .continue{display:inline-flex;align-items:center;gap:6px;color:var(--accent);font-weight:600;text-decoration:none;font-size:calc(14px*var(--fs))}
@@ -114,8 +104,6 @@ svg{display:block}
 .mstats{color:var(--muted);font-size:calc(14px*var(--fs));margin-top:6px}
 .mbtns{display:flex;gap:8px;margin-top:14px}
 .mbtns:empty{display:none}
-.filters{position:sticky;top:calc(60px + env(safe-area-inset-top));z-index:10;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);padding:10px 0;border-bottom:1px solid var(--line);margin-top:14px}
-.filters .wrap{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
 .seg{display:inline-flex;background:var(--surface-2);border-radius:10px;padding:3px}
 .seg button{height:30px;padding:0 12px;border-radius:8px;font-size:max(12px,calc(13px*var(--fs)));font-weight:600;color:var(--ink-2)}
 .seg button[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.1)}
@@ -124,14 +112,9 @@ svg{display:block}
 .switch input::after{content:"";position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.25);transition:transform .2s}
 .switch input:checked{background:var(--jade)}
 .switch input:checked::after{transform:translateX(14px)}
-.jump{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding:8px 0 2px;width:100%}
-.jump::-webkit-scrollbar{display:none}
-.jump button{flex:none;height:30px;padding:0 12px;border-radius:15px;border:1px solid var(--line);font-size:max(12px,calc(13px*var(--fs)));color:var(--ink-2);background:var(--surface)}
-.jump button:hover{border-color:var(--accent);color:var(--accent)}
 
-.group{margin-top:26px;scroll-margin-top:170px}
-.group h3{display:flex;align-items:baseline;gap:10px;margin:0 0 8px;font-size:calc(17px*var(--fs))}
-.group h3 span{font:500 calc(16px*var(--fs)) var(--zh-serif);color:var(--muted)}
+.group h3{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 10px;margin:0 0 8px;font-size:calc(17px*var(--fs))}
+.group h3 span{font:500 calc(16px*var(--fs)) var(--zh-serif);color:var(--muted);white-space:nowrap}
 .group h3 em{margin-left:auto;font-style:normal;font-size:max(12px,calc(12px*var(--fs)));color:var(--muted);font-weight:500}
 .list{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
 .row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.35fr) auto;gap:16px;padding:14px 14px 14px 18px;border-top:1px solid var(--line);align-items:start;transition:background .2s}
@@ -161,21 +144,6 @@ svg{display:block}
 .ic.tick[aria-pressed="true"]{background:var(--jade);border-color:var(--jade);color:#fff}
 .ic.star[aria-pressed="true"]{background:var(--amber-soft);border-color:var(--amber);color:var(--amber)}
 [aria-pressed="true"]>.star-i{fill:currentColor}
-@media (max-width:600px){
-  .row{gap:8px 12px;padding:12px;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);grid-template-areas:"en zh" "acts zh"}
-  .row .en{grid-area:en} .row .zh{grid-area:zh} .row .acts{grid-area:acts;display:flex;flex-direction:row;align-self:end}
-  .en-t{font-size:calc(14.5px*var(--fs))}
-  .c b{font-size:calc(19px*var(--fs))}
-  .c i{font-size:max(12px,calc(12px*var(--fs)))}
-  .ic{width:34px;height:34px}
-}
-.keys{margin-top:18px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);position:relative}
-.keys summary{display:flex;align-items:baseline;gap:10px;padding:13px 16px;font-size:calc(16px*var(--fs));font-weight:600;cursor:pointer;list-style:none;user-select:none}
-.keys summary::-webkit-details-marker{display:none}
-.keys summary::before{content:"▸";color:var(--amber);flex:none}
-.keys[open] summary::before{content:"▾"}
-.keys summary span{font:500 calc(16px*var(--fs)) var(--zh-serif);color:var(--muted)}
-.keys summary em{margin-left:auto;font-style:normal;font-size:max(12px,calc(12px*var(--fs)));color:var(--muted);font-weight:500}
 .keys-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:10px;padding:0 14px 14px}
 .key{background:var(--amber-soft);border-radius:10px;padding:10px 42px 10px 12px;position:relative}
 .kstar{position:absolute;top:4px;right:4px;width:34px;height:34px;border-radius:9px;display:grid;place-items:center;color:var(--amber);opacity:.6}
@@ -241,11 +209,8 @@ svg{display:block}
 .art .w{fill:var(--wash)} .art .ws{stop-color:var(--wash)} .art .pp{fill:var(--paper)} .art .pps{stop-color:var(--paper)}
 .art .seal{fill:var(--accent)} .art .st{fill:none;stroke:var(--wash)}
 .bgart{position:fixed;left:0;right:0;bottom:0;height:42vh;z-index:-1;pointer-events:none;opacity:.9}
-.hero,.mhead{position:relative}
-.hero>*,.mhead>*{position:relative;z-index:1}
-.hero-band{height:230px;margin:0 -16px -40px;
-  -webkit-mask-image:linear-gradient(to right,transparent,#000 12%,#000 88%,transparent),linear-gradient(#000 55%,transparent);-webkit-mask-composite:source-in;
-  mask-image:linear-gradient(to right,transparent,#000 12%,#000 88%,transparent),linear-gradient(#000 55%,transparent);mask-composite:intersect}
+.mhead{position:relative}
+.mhead>*{position:relative;z-index:1}
 .mhead-art{position:absolute!important;z-index:0!important;top:0;bottom:-10px;right:-16px;width:62%;pointer-events:none;
   -webkit-mask-image:linear-gradient(to right,transparent,#000 40%,#000 90%,transparent),linear-gradient(#000 55%,transparent);
   -webkit-mask-composite:source-in;
@@ -258,13 +223,135 @@ svg{display:block}
 .pr-art{position:absolute;left:0;right:0;bottom:0;height:40vh;pointer-events:none;z-index:0}
 .pr>*:not(.pr-art){position:relative;z-index:1}
 @media (max-width:700px){
-  .hero-band{height:150px;margin-bottom:-24px}
   .mhead-art{width:90%;opacity:.55}
 }
-.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom));transform:translate(-50%,20px);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:12px;font-size:calc(14px*var(--fs));opacity:0;pointer-events:none;transition:all .25s;z-index:60;max-width:calc(100vw - 32px);text-align:center}
+.toast{position:fixed;left:50%;bottom:calc(84px + env(safe-area-inset-bottom));transform:translate(-50%,20px);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:12px;font-size:calc(14px*var(--fs));opacity:0;pointer-events:none;transition:all .25s;z-index:60;max-width:calc(100vw - 32px);text-align:center}
 .toast.show{opacity:1;transform:translate(-50%,0)}
 .warn{background:var(--accent-soft);color:var(--accent);border-radius:12px;padding:10px 14px;margin-top:16px;font-size:calc(14px*var(--fs))}
 footer{color:var(--muted);font-size:max(12px,calc(12.5px*var(--fs)));text-align:center;padding:40px 16px calc(40px + env(safe-area-inset-bottom))}
+/* ── app shell: bottom tab bar + floating buttons ── */
+body{padding-bottom:calc(66px + env(safe-area-inset-bottom))}
+.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:30;background:color-mix(in srgb,var(--surface) 92%,transparent);backdrop-filter:saturate(1.4) blur(14px);-webkit-backdrop-filter:saturate(1.4) blur(14px);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom)}
+.tabbar-in{display:grid;grid-template-columns:repeat(5,1fr);max-width:560px;margin:0 auto;height:62px;padding:0 6px}
+.tb{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:var(--muted);text-decoration:none;font-size:12px;font-weight:600;position:relative;min-width:0}
+.tb[aria-current="page"]{color:var(--accent)}
+.tb-go{color:var(--accent)}
+.tb-go i{width:48px;height:48px;border-radius:50%;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;margin-top:-24px;border:3px solid var(--bg);box-shadow:0 6px 16px color-mix(in srgb,var(--accent) 40%,transparent)}
+.tb em{position:absolute;top:5px;left:calc(50% + 5px);min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:var(--accent);color:var(--accent-ink);font:700 12px/18px -apple-system,sans-serif;font-style:normal;text-align:center}
+.tb em:empty{display:none}
+/* bottom-left, so they never sit on top of a phrase's buttons (those are on the right) */
+.fabs{position:fixed;left:14px;bottom:calc(78px + env(safe-area-inset-bottom));z-index:25;display:flex;flex-direction:column;align-items:flex-start;gap:8px;pointer-events:none}
+.fab{pointer-events:auto;height:44px;min-width:44px;padding:0 16px;border-radius:22px;background:var(--surface);border:1px solid var(--line);box-shadow:0 4px 14px rgba(0,0,0,.16);display:inline-flex;align-items:center;justify-content:center;gap:6px;color:var(--ink);font-weight:600;font-size:max(12px,calc(13px*var(--fs)))}
+.fab.round{padding:0;width:44px}
+.fab.next{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.fab[hidden]{display:none}
+@media (max-width:560px){#themeBtn{display:none}}
+
+/* ── home: goal banner, category chips, carousel, product-style cards ── */
+.hello{margin:18px 0 12px;font-size:calc(clamp(20px,3.4vw,28px)*var(--fs));line-height:1.2;letter-spacing:-.02em;font-weight:700}
+.hello span{font-family:var(--zh-serif);font-weight:600;color:var(--accent)}
+.goal{position:relative;overflow:hidden;display:flex;align-items:center;gap:16px;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:16px;box-shadow:var(--shadow)}
+.goal-art{--paper:var(--surface);position:absolute;top:0;bottom:0;right:0;width:65%;opacity:.55;pointer-events:none;-webkit-mask-image:linear-gradient(to right,transparent,#000 70%);mask-image:linear-gradient(to right,transparent,#000 70%)}
+.ring{--p:0;flex:none;width:86px;height:86px;border-radius:50%;background:conic-gradient(var(--jade) calc(var(--p)*1%),var(--surface-2) 0);display:grid;place-items:center;position:relative}
+.ring::before{content:"";position:absolute;inset:8px;border-radius:50%;background:var(--surface)}
+.ring div{position:relative;text-align:center;line-height:1.1}
+.ring b{font-size:24px;font-weight:700;letter-spacing:-.02em}
+.ring small{display:block;font-size:12px;color:var(--muted);font-weight:600}
+.goal-txt{position:relative;min-width:0;flex:1}
+.goal-h{font-weight:700;font-size:calc(17px*var(--fs));line-height:1.25}
+.pills{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0 12px}
+.pill{display:inline-flex;align-items:center;gap:4px;height:26px;padding:0 10px;border-radius:13px;background:var(--surface-2);font-size:max(12px,calc(12.5px*var(--fs)));font-weight:600;color:var(--ink-2);white-space:nowrap;text-decoration:none}
+.pill.hot{background:var(--accent-soft);color:var(--accent)}
+.goal-btns{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.chips{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin:16px -16px 0;padding:0 16px 2px}
+.chips::-webkit-scrollbar,.hscroll::-webkit-scrollbar,.tabs::-webkit-scrollbar{display:none}
+.chip{flex:none;height:36px;padding:0 15px;border-radius:18px;border:1px solid var(--line);background:var(--surface);font-weight:600;font-size:max(12px,calc(13.5px*var(--fs)));color:var(--ink-2);white-space:nowrap}
+.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.area{scroll-margin-top:80px}
+.hscroll{display:flex;gap:10px;overflow-x:auto;scrollbar-width:none;margin:0 -16px;padding:2px 16px 8px;scroll-snap-type:x proximity}
+.mini{flex:none;width:230px;scroll-snap-align:start;display:flex;gap:10px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:10px;text-decoration:none;box-shadow:var(--shadow)}
+.mini .art{--paper:var(--surface-2);width:56px;height:56px;border-radius:10px;overflow:hidden;flex:none;background:var(--surface-2)}
+.mini div:last-child{min-width:0;flex:1}
+.mini b{display:block;font-size:calc(14px*var(--fs));line-height:1.25}
+.mini small{display:block;font-size:max(12px,calc(12px*var(--fs)));color:var(--muted);margin-top:2px}
+.mini .bar{margin-top:6px}
+.card{position:relative}
+.card .tag-new{position:absolute;top:8px;left:8px}
+.medal{position:absolute;top:6px;right:8px;font-size:22px;line-height:1;filter:drop-shadow(0 1px 2px rgba(0,0,0,.25))}
+@media (max-width:600px){
+  .cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .card{padding:12px}
+  .card-art{height:78px;margin:-12px -12px 10px}
+  .card .zhT{font-size:calc(19px*var(--fs))}
+  .card .enT{font-size:calc(14px*var(--fs));line-height:1.3}
+  .area{margin-top:24px}
+}
+
+/* ── module page: topic tabs, one topic at a time ── */
+.tabs{position:sticky;top:calc(60px + env(safe-area-inset-top));z-index:10;margin:14px -16px 0;padding:9px 16px;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line);display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
+.tab{flex:none;height:36px;padding:0 14px;border-radius:18px;border:1px solid var(--line);background:var(--surface);color:var(--ink-2);font-weight:600;font-size:max(12px,calc(13.5px*var(--fs)));display:inline-flex;align-items:center;gap:7px;white-space:nowrap}
+.tab em{font-style:normal;font-weight:600;color:var(--muted);font-size:max(12px,calc(12px*var(--fs)))}
+.tab.done em{color:var(--jade)}
+.tab[aria-selected="true"]{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+.tab[aria-selected="true"] em{color:inherit;opacity:.75}
+.tools{display:flex;gap:10px 14px;align-items:center;flex-wrap:wrap;margin-top:14px}
+.tools .grow{flex:1}
+.group{margin-top:16px}
+.pager{display:flex;gap:10px;margin-top:18px}
+.pager .btn{flex:1;min-width:0;height:auto;min-height:50px;padding:8px 14px;white-space:normal;line-height:1.25;text-align:center;border-radius:14px;font-size:calc(15px*var(--fs))}
+.keys{margin-top:16px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+.keys h3{display:flex;align-items:baseline;gap:10px;margin:0;padding:13px 16px;font-size:calc(16px*var(--fs))}
+.keys h3 span{font:500 calc(16px*var(--fs)) var(--zh-serif);color:var(--muted)}
+.keys h3 em{margin-left:auto;font-style:normal;font-size:max(12px,calc(12px*var(--fs)));color:var(--muted);font-weight:500}
+@media (max-width:600px){
+  /* phrase cards stack: English, then Chinese full width, then tip, then level + buttons */
+  .row{grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"en en" "zh zh" "note note" "meta acts";gap:0 12px;padding:14px}
+  .row .en{display:contents}
+  .row .en-t{grid-area:en;margin:0}
+  .row .zh{grid-area:zh;margin:8px -4px 0}
+  .row .note{grid-area:note}
+  .row .en>.meta{grid-area:meta;align-self:center;margin-top:10px}
+  .row .acts{grid-area:acts;display:flex;flex-direction:row;margin-top:10px;gap:8px}
+  .row .ic{width:40px;height:40px;border-radius:12px}
+  .en-t{font-size:calc(15.5px*var(--fs))}
+  .c b{font-size:calc(22px*var(--fs))}
+}
+
+/* ── me: level, streak, badges ── */
+.me-card{display:flex;gap:16px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:16px;box-shadow:var(--shadow);margin-top:18px}
+.lv{flex:none;width:76px;height:76px;border-radius:22px;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;text-align:center;line-height:1}
+.lv small{display:block;font-size:12px;font-weight:700;letter-spacing:.08em;opacity:.85}
+.lv b{display:block;font-size:34px;font-weight:700;margin-top:2px}
+.me-id{min-width:0;flex:1}
+.me-id .zhT{font:600 calc(24px*var(--fs))/1.15 var(--zh-serif)}
+.me-id .enT{font-weight:600;font-size:calc(15px*var(--fs))}
+.me-id small{display:block;font-size:max(12px,calc(13px*var(--fs)));color:var(--muted);margin-top:6px}
+.stats3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:10px}
+.stats3 div{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px 8px;text-align:center}
+.stats3 b{display:block;font-size:calc(22px*var(--fs));letter-spacing:-.02em}
+.stats3 small{display:block;font-size:max(12px,calc(12.5px*var(--fs)));color:var(--muted)}
+.week{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.day{text-align:center}
+.day i{display:grid;place-items:center;aspect-ratio:1;max-width:46px;margin:0 auto;border-radius:50%;background:var(--surface-2);color:var(--muted);font-style:normal;font-weight:700;font-size:14px}
+.day.ok i{background:var(--jade);color:#fff}
+.day.today i{box-shadow:0 0 0 2px var(--bg),0 0 0 4px var(--accent)}
+.day small{display:block;margin-top:6px;font-size:12px;color:var(--muted);font-weight:600}
+.badges{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.badge{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px;text-align:center}
+.badge span{display:block;font-size:30px;line-height:1.1}
+.badge b{display:block;font-size:calc(14px*var(--fs));margin-top:6px}
+.badge small{display:block;font-size:max(12px,calc(12px*var(--fs)));color:var(--muted);margin-top:2px}
+.badge.off{opacity:.5}
+.badge.off span{filter:grayscale(1)}
+.mrow{display:flex;align-items:center;gap:10px;padding:12px 14px;border-top:1px solid var(--line);text-decoration:none}
+.mrow:first-child{border-top:0}
+.mrow b{flex:1;min-width:0;font-size:calc(14.5px*var(--fs));font-weight:600}
+.mrow span{font-size:20px;letter-spacing:2px;white-space:nowrap}
+.mrow span u{text-decoration:none;opacity:.22;filter:grayscale(1)}
+.mrow em{font-style:normal;font-size:max(12px,calc(13px*var(--fs)));color:var(--muted);min-width:3em;text-align:right}
+.confetti{position:fixed;inset:0;pointer-events:none;z-index:70;overflow:hidden}
+.confetti i{position:absolute;top:-24px;width:9px;height:14px;border-radius:2px;animation:fall 1.6s ease-in forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(600deg)}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 </head>
@@ -287,6 +374,20 @@ footer{color:var(--muted);font-size:max(12px,calc(12.5px*var(--fs)));text-align:
 <div class="bgart art" id="bgart"></div>
 <main id="app" class="wrap"></main>
 <footer>Pinyin is generated automatically. Chinese voice comes from your device.</footer>
+
+<div class="fabs">
+  <button class="fab round" id="fabTop" aria-label="Back to top" hidden><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V6M6 11l6-6 6 6"/></svg></button>
+  <button class="fab next" id="fabNext" hidden></button>
+</div>
+<nav class="tabbar" id="tabbar" aria-label="Main">
+  <div class="tabbar-in">
+    <a class="tb" data-nav="home" href="#/"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11l8-7 8 7v8a1 1 0 0 1-1 1h-4v-6h-6v6H5a1 1 0 0 1-1-1z"/></svg><span>Home</span></a>
+    <button class="tb" data-nav="search" data-go="search"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span>Search</span></button>
+    <button class="tb tb-go" data-go="practice" aria-label="Practise now"><i><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></i><span>Practise</span></button>
+    <a class="tb" data-nav="fav" href="#/m/fav"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5l2.7 5.5 6 .9-4.4 4.2 1 6-5.3-2.8-5.3 2.8 1-6L3.3 9.9l6-.9z"/></svg><span>Saved</span><em id="tbFav"></em></a>
+    <a class="tb" data-nav="me" href="#/me"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg><span>Me</span></a>
+  </div>
+</nav>
 
 <div class="sheet-bg" id="sheetBg"></div>
 <div class="sheet" id="sheet" role="dialog" aria-label="Settings">
@@ -357,6 +458,72 @@ const favs = new Set(store.get("mt_fav_v1", []));
 const favKeys = new Set(store.get("mt_favkeys_v1", []));
 const saveFavs = () => { store.set("mt_fav_v1", [...favs]); store.set("mt_favkeys_v1", [...favKeys]); };
 
+/* ───────────── game: daily goal, streak, points, levels, medals ─────────────
+   Points are worked out, not stored: 10 for every phrase marked known, 2 for every practice card answered.
+   G.days["2026-10-04"] = [phrases learned that day, 1 if the daily goal was reached]. */
+const G = Object.assign({ days: {}, reviews: 0, goal: 10 }, store.get("mt_game_v1", {}));
+const saveG = () => store.set("mt_game_v1", G);
+const dayKey = (d = new Date()) => d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
+const today = () => G.days[dayKey()] || [0, 0];
+const countedToday = new Set();   // a phrase counts towards the goal once per visit, however often it is ticked
+function bump(id) {
+  if (countedToday.has(id)) return;
+  countedToday.add(id);
+  const k = dayKey(), d = G.days[k] || [0, 0];
+  d[0]++; if (d[0] >= G.goal) d[1] = 1;
+  G.days[k] = d; saveG();
+}
+function streak() {
+  const d = new Date(); let n = 0;
+  if (!today()[1]) d.setDate(d.getDate() - 1);   // today not finished yet: yesterday keeps the streak alive
+  while ((G.days[dayKey(d)] || [])[1]) { n++; d.setDate(d.getDate() - 1); }
+  return n;
+}
+function bestStreak() {
+  let best = 0, run = 0, prev = null;
+  Object.keys(G.days).sort().forEach(k => {
+    if (!G.days[k][1]) return;
+    const t = new Date(k + "T00:00:00").getTime();
+    run = prev != null && Math.round((t - prev) / 864e5) === 1 ? run + 1 : 1;
+    prev = t; best = Math.max(best, run);
+  });
+  return best;
+}
+const xp = () => known.size * 10 + G.reviews * 2;
+// Level ladder: points needed, Chinese title, English title.
+const LEVELS = [[0, "新手", "Newcomer"], [50, "学徒", "Apprentice"], [150, "旅客", "Traveller"], [300, "常客", "Regular"], [500, "空乘", "Cabin Crew"],
+  [800, "乘务长", "Purser"], [1200, "副驾驶", "First Officer"], [2000, "机长", "Captain"], [3500, "总监", "Director"], [6000, "总裁", "President"], [9000, "董事长", "Chairman"]];
+function levelOf(x) {
+  let i = 0; while (i + 1 < LEVELS.length && x >= LEVELS[i + 1][0]) i++;
+  const nx = LEVELS[i + 1];
+  return { n: i + 1, zh: LEVELS[i][1], en: LEVELS[i][2], pct: nx ? (x - LEVELS[i][0]) / (nx[0] - LEVELS[i][0]) * 100 : 100,
+    next: nx ? { n: i + 2, zh: nx[1], en: nx[2], left: nx[0] - x } : null };
+}
+// Module medals: bronze at 25% known, silver at 50%, gold at 100%.
+const MEDAL = ["", "🥉", "🥈", "🥇"], MEDAL_NAME = ["", "Bronze", "Silver", "Gold"];
+function medal(m) { const n = m.items.length; if (!n) return 0; const r = knownIn(m.items) / n; return r >= 1 ? 3 : r >= 0.5 ? 2 : r >= 0.25 ? 1 : 0; }
+// Runs a change to progress, then celebrates anything it unlocked.
+function withRewards(p, change) {
+  const m = BY[p.mod], l0 = levelOf(xp()).n, m0 = m ? medal(m) : 0, g0 = today()[1];
+  change();
+  const l1 = levelOf(xp()), m1 = m ? medal(m) : 0, msgs = [];
+  if (!g0 && today()[1]) msgs.push(`Daily goal reached! 🔥 ${streak()}-day streak`);
+  if (l1.n > l0) msgs.push(`Level up! Lv ${l1.n} ${l1.zh} · ${l1.en}`);
+  if (m1 > m0) msgs.push(`${MEDAL[m1]} ${MEDAL_NAME[m1]} medal · ${m.title}`);
+  if (msgs.length) { confetti(); toast(msgs.join("  ·  "), 4500); }
+}
+function confetti() {
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const box = document.createElement("div"), cols = ["var(--accent)", "var(--jade)", "var(--amber)", "var(--t4)", "var(--t2)"];
+  box.className = "confetti";
+  for (let i = 0; i < 40; i++) {
+    const s = document.createElement("i");
+    s.style.cssText = `left:${Math.random() * 100}%;background:${cols[i % cols.length]};animation-delay:${Math.random() * 0.5}s;animation-duration:${1.2 + Math.random()}s`;
+    box.appendChild(s);
+  }
+  document.body.appendChild(box); setTimeout(() => box.remove(), 2800);
+}
+
 /* ───────────── helpers ───────────── */
 const $ = s => document.querySelector(s);
 const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
@@ -368,10 +535,12 @@ const ICON = {
   say: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg>',
   tick: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>',
   star: '<svg class="star-i" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 3.5l2.7 5.5 6 .9-4.4 4.2 1 6-5.3-2.8-5.3 2.8 1-6L3.3 9.9l6-.9z"/></svg>',
+  right: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>',
+  down: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>',
   back: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 6l-6 6 6 6"/></svg>',
   play: '<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M7 5v14l12-7z"/></svg>'
 };
-function toast(msg) { const t = $("#toast"); t.textContent = msg; t.classList.add("show"); clearTimeout(toast.t); toast.t = setTimeout(() => t.classList.remove("show"), 2600); }
+function toast(msg, ms) { const t = $("#toast"); t.textContent = msg; t.classList.add("show"); clearTimeout(toast.t); toast.t = setTimeout(() => t.classList.remove("show"), ms || 2600); }
 
 /* ───────────── parsing ─────────────
    Line:  Level | English | 中文 | note        "# Title | 标题" = group
@@ -531,97 +700,194 @@ function rowHTML(p, showMod) {
 
 function renderHome() {
   document.title = "Mandarin Talk";
-  const total = ALL.length, kn = knownIn(ALL);
+  view.mod = null; view.tabs = null;
+  const t = today(), st = streak(), lv = levelOf(xp()), left = Math.max(0, G.goal - t[0]);
   const last = BY[store.get("mt_last_v1", "")];
   const news = MT.changelog[0];
-  let h = `<div class="art hero-band">${art({ id: "home" }, { brush: true })}</div>
-  <section class="hero">
-    <div>
-      <h1>Speak up at work and on the road. <span>好好说。</span></h1>
-      <p>${fmt(MODS.reduce((n, m) => n + m.items.length, 0))} everyday phrases for aviation, business and travel — English, 中文 and pinyin side by side. Tap any Chinese line to hear it.</p>
-    </div>
-    <div class="overall">
-      <div class="num">${fmt(kn)} <small>/ ${fmt(total)}</small></div>
-      <div class="lab">phrases you know</div>
-      <div class="bar"><i style="width:${total ? kn / total * 100 : 0}%"></i></div>
-      <div class="row-btns"><button class="btn primary small" data-act="practice-all">${ICON.play} Quick practice</button><a class="btn small" href="#/m/fav">★ Favourites${favs.size + favKeys.size ? " · " + (favs.size + favKeys.size) : ""}</a></div>
+  // goal banner
+  let h = `<h1 class="hello">Speak up at work and on the road. <span>好好说。</span></h1>
+  <section class="goal">
+    <div class="art goal-art">${art({ id: "home" })}</div>
+    <div class="ring" style="--p:${Math.min(100, t[0] / G.goal * 100)}"><div><b>${t[0]}</b><small>of ${G.goal}</small></div></div>
+    <div class="goal-txt">
+      <div class="goal-h">${t[1] ? "Goal reached today! 🎉" : t[0] ? `${left} more to hit today's goal` : `Today's goal: ${G.goal} phrases`}</div>
+      <div class="pills"><span class="pill${st ? " hot" : ""}">🔥 ${st ? st + "-day streak" : "Start a streak"}</span><a class="pill" href="#/me">Lv ${lv.n} ${lv.zh}</a><span class="pill">${fmt(xp())} pts</span></div>
+      <div class="goal-btns"><button class="btn primary small" data-act="daily">${ICON.play} ${t[0] ? "Keep going" : "Start practising"}</button></div>
     </div>
   </section>`;
-  if (news || last) h += `<div class="news">${news ? `<b>New</b><span>${esc(news.text)}</span>` : ""}${last ? `<a class="continue" href="#/m/${last.id}" style="margin-left:auto">Continue: ${esc(last.title)} →</a>` : ""}</div>`;
   if (MT.failed.length) h += `<div class="warn">Couldn't load: ${MT.failed.map(esc).join(", ")}. Check the file names in modules/list.js.</div>`;
 
-  const areas = MT.areas.concat(MODS.some(m => !MT.areas.find(a => a.id === m.area)) ? [{ id: "_other", title: "More", zh: "其他" }] : []);
-  areas.forEach(a => {
-    const mods = MODS.filter(m => a.id === "_other" ? !MT.areas.find(x => x.id === m.area) : m.area === a.id);
-    if (!mods.length) return;
+  // category chips, like the category row in a shopping app
+  const other = MODS.some(m => !MT.areas.find(a => a.id === m.area));
+  const areas = MT.areas.concat(other ? [{ id: "_other", title: "More", zh: "其他" }] : []).map(a => ({ a,
+    mods: MODS.filter(m => a.id === "_other" ? !MT.areas.find(x => x.id === m.area) : m.area === a.id) })).filter(x => x.mods.length);
+  const cat = view.cat && (view.cat === "mine" || areas.some(x => x.a.id === view.cat)) ? view.cat : "all";
+  h += `<div class="chips">${[{ id: "all", title: "All" }].concat(areas.map(x => x.a), [{ id: "mine", title: "Mine" }])
+    .map(c => `<button class="chip" data-cat="${c.id}" aria-pressed="${c.id === cat}">${esc(c.title)}</button>`).join("")}</div>`;
+
+  // jump back in: modules already started, most recent first
+  const going = MODS.filter(m => m === last || (knownIn(m.items) && knownIn(m.items) < m.items.length)).sort((a, b) => (b === last) - (a === last));
+  if (cat === "all" && going.length) {
+    h += `<section class="area" data-sec><h2>Jump back in <span>继续学习</span></h2><div class="hscroll">${going.map(m => {
+      const n = m.items.length, k = knownIn(m.items);
+      return `<a class="mini" href="#/m/${m.id}"><div class="art">${art(m)}</div><div><b>${esc(m.title)}</b><small>${k} of ${n} known</small><div class="bar"><i style="width:${n ? k / n * 100 : 0}%"></i></div></div></a>`;
+    }).join("")}</div></section>`;
+  }
+  areas.forEach(({ a, mods }) => {
+    if (cat !== "all" && cat !== a.id) return;
     const n = mods.reduce((s, m) => s + m.items.length, 0);
-    h += `<section class="area"><h2>${esc(a.title)} <span>${esc(a.zh || "")}</span><em>${fmt(n)} phrases</em></h2><div class="cards">`;
-    mods.forEach(m => h += cardHTML(m));
-    h += `</div></section>`;
+    h += `<section class="area" data-sec><h2>${esc(a.title)} <span>${esc(a.zh || "")}</span><em>${fmt(n)} phrases</em></h2><div class="cards">${mods.map(m => cardHTML(m)).join("")}</div></section>`;
   });
-  h += `<section class="area"><h2>Your own <span>自己的</span></h2><div class="cards">${cardHTML(buildFav(), "fav")}${cardHTML(MINE, "mine")}</div></section>`;
+  if (cat === "all" || cat === "mine") h += `<section class="area" data-sec><h2>Your own <span>自己的</span></h2><div class="cards">${cardHTML(buildFav(), "fav")}${cardHTML(MINE, "mine")}</div></section>`;
+  if (news) h += `<div class="news"><b>New</b><span>${esc(news.text)}</span></div>`;
   app.innerHTML = h;
 }
 function cardHTML(m, kind) {
-  const n = m.items.length, k = knownIn(m.items), mine = !!kind, nk = (m.keyList || []).length;
+  const n = m.items.length, k = knownIn(m.items), mine = !!kind, nk = (m.keyList || []).length, md = mine ? 0 : medal(m);
   const meta = kind === "fav" ? (n || nk ? `${n} phrase${n === 1 ? "" : "s"} · ${nk} card${nk === 1 ? "" : "s"} saved` : "Tap ☆ on anything to save it here")
     : kind === "mine" ? (n ? `${n} phrases you added` : "Add your own phrases") : `${n} phrases · ${m.groups.length} topics`;
   return `<a class="card${mine ? " mine" : ""}" href="#/m/${m.id}">
     <div class="art card-art">${art(m)}</div>
-    <div class="zhT">${esc(m.zh)} ${isNew(m) ? '<span class="tag-new">New</span>' : ""}</div>
+    ${isNew(m) ? '<span class="tag-new">New</span>' : ""}${md ? `<span class="medal" title="${MEDAL_NAME[md]} medal">${MEDAL[md]}</span>` : ""}
+    <div class="zhT">${esc(m.zh)}</div>
     <div class="enT">${esc(m.title)}</div>
     <div class="meta">${meta}</div>
     ${n ? `<div class="bar"><i style="width:${k / n * 100}%"></i></div><div class="foot"><span>${k} known</span><span>${Math.round(k / n * 100)}%</span></div>` : ""}
   </a>`;
 }
 
+// "Me" page: level, streak, this week, daily goal, badges, module medals.
+function renderMe() {
+  document.title = "Me · Mandarin Talk";
+  view.mod = null; view.tabs = null;
+  const x = xp(), lv = levelOf(x), st = streak(), bs = bestStreak(), kn = known.size, nf = favs.size + favKeys.size;
+  const golds = MODS.filter(m => medal(m) === 3).length, pri = MODS.filter(m => m.area === (MT.areas[0] || {}).id);
+  const now = new Date(), mon = new Date(now); mon.setDate(now.getDate() - (now.getDay() + 6) % 7);
+  const week = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map((lab, i) => {
+    const d = new Date(mon); d.setDate(mon.getDate() + i);
+    const r = G.days[dayKey(d)] || [0, 0];
+    return `<div class="day${r[1] ? " ok" : ""}${dayKey(d) === dayKey() ? " today" : ""}"><i>${r[1] ? "✓" : r[0] || ""}</i><small>${lab}</small></div>`;
+  }).join("");
+  const badges = [
+    ["🌱", "First steps", "Know 10 phrases", kn >= 10], ["📚", "Bookworm", "Know 50 phrases", kn >= 50], ["💯", "Hundred club", "Know 100 phrases", kn >= 100],
+    ["🚀", "Taking off", "Know 250 phrases", kn >= 250], ["🏆", "Half way", "Know 500 phrases", kn >= 500], ["👑", "Fluent flyer", "Know 1,000 phrases", kn >= 1000],
+    ["🔥", "On a roll", "3-day streak", bs >= 3], ["⚡", "Full week", "7-day streak", bs >= 7], ["🌙", "Monthly habit", "30-day streak", bs >= 30],
+    ["⭐", "Collector", "Save 10 favourites", nf >= 10], ["🥇", "Gold standard", "Finish a whole module", golds >= 1],
+    ["🎖", "Priority cleared", "Gold in every Priority module", pri.length > 0 && pri.every(m => medal(m) === 3)]
+  ];
+  app.innerHTML = `<div class="me-card">
+      <div class="lv"><div><small>LEVEL</small><b>${lv.n}</b></div></div>
+      <div class="me-id"><div class="zhT">${lv.zh}</div><div class="enT">${lv.en}</div>
+        <div class="bar"><i style="width:${lv.pct}%"></i></div>
+        <small>${fmt(x)} pts${lv.next ? ` · ${fmt(lv.next.left)} more to Lv ${lv.next.n} ${lv.next.zh} ${lv.next.en}` : " · top level reached"}</small></div>
+    </div>
+    <div class="stats3"><div><b>🔥 ${st}</b><small>day streak</small></div><div><b>${fmt(kn)}</b><small>phrases known</small></div><div><b>🥇 ${golds}</b><small>gold medals</small></div></div>
+    <section class="area" data-sec><h2>This week <span>本周</span><em>best streak ${bs} day${bs === 1 ? "" : "s"}</em></h2><div class="week">${week}</div></section>
+    <section class="area" data-sec><h2>Daily goal <span>每日目标</span></h2>
+      <div class="seg" id="goalSeg">${[5, 10, 20].map(g => `<button data-goal="${g}" aria-pressed="${G.goal === g}">${g} phrases</button>`).join("")}</div>
+      <p class="section-note">Mark phrases as known (✓), or press "Got it" in practice. Reach the goal each day to keep your streak. Today: ${today()[0]} of ${G.goal}.</p></section>
+    <section class="area" data-sec><h2>Badges <span>徽章</span><em>${badges.filter(b => b[3]).length} of ${badges.length}</em></h2>
+      <div class="badges">${badges.map(b => `<div class="badge${b[3] ? "" : " off"}"><span>${b[0]}</span><b>${b[1]}</b><small>${b[2]}</small></div>`).join("")}</div></section>
+    <section class="area" data-sec><h2>Module medals <span>奖牌</span></h2>
+      <div class="list">${MODS.map(m => { const md = medal(m), n = m.items.length;
+        return `<a class="mrow" href="#/m/${m.id}"><b>${esc(m.title)}</b><span>${[1, 2, 3].map(i => i <= md ? MEDAL[i] : `<u>${MEDAL[i]}</u>`).join("")}</span><em>${n ? Math.round(knownIn(m.items) / n * 100) : 0}%</em></a>`; }).join("")}</div>
+      <p class="section-note">Bronze at 25% of a module known, silver at 50%, gold at 100%. Points: 10 for each phrase you know, 2 for each practice card.</p></section>
+    <div class="mbtns" style="margin-top:22px"><button class="btn ghost" data-act="settings">Settings</button><a class="btn ghost" href="#/m/fav">★ Favourites${nf ? " · " + nf : ""}</a></div>`;
+}
+
 function visible(items) {
   return items.filter(p => (view.level === "all" || p.lvl === view.level) && !(view.hideKnown && known.has(p.id)));
+}
+// Module page: one topic at a time, picked from a row of tabs, so there is never a 100-phrase scroll.
+// Tabs: "Remember" cards, then each topic, then "All topics". The tab last used in a module is remembered.
+const tabState = store.get("mt_tab_v1", {});
+function tabsOf(m, keyList) {
+  const fav = m.id === "fav", t = [];
+  if (fav && m.items.length + keyList.length) t.push({ id: "all", label: "All" });
+  if (keyList.length) t.push({ id: "keys", label: fav ? "Saved cards" : "💡 Remember", n: keyList.length });
+  m.groups.forEach((g, i) => t.push({ id: String(i), label: g.title, g }));
+  if (!fav && m.groups.length > 1) t.push({ id: "all", label: "All topics" });
+  return t;
+}
+function tabsHTML() {
+  return view.tabs.map(t => {
+    const g = t.g, k = g ? knownIn(g.items) : 0, done = g && g.items.length && k === g.items.length;
+    return `<button class="tab${done ? " done" : ""}" role="tab" data-tab="${t.id}" aria-selected="${t.id === view.tab}">${esc(t.label)}${g ? `<em>${done ? "✓" : k + "/" + g.items.length}</em>` : t.n ? `<em>${t.n}</em>` : ""}</button>`;
+  }).join("");
+}
+function centreTab() {
+  const tabs = $("#tabs"), a = tabs && tabs.querySelector('[aria-selected="true"]');
+  if (a) tabs.scrollLeft = a.offsetLeft - (tabs.clientWidth - a.offsetWidth) / 2;
 }
 function renderModule(id) {
   const m = id === "fav" ? buildFav() : BY[id];
   if (!m) { location.hash = "#/"; return; }
-  view.mod = m;
-  const keyList = m.keyList || keysOf(m);
+  const keyList = m.keyList || keysOf(m), md = id === "fav" || id === "mine" ? 0 : medal(m);
+  view.mod = m; view.keyList = keyList; view.tabs = tabsOf(m, keyList);
+  const want = id === "fav" ? view.favTab : tabState[id];
+  view.tab = (view.tabs.find(t => t.id === want) || view.tabs[0] || {}).id;
   if (id !== "mine" && id !== "fav") store.set("mt_last_v1", id);
   document.title = m.title + " · Mandarin Talk";
-  const k = knownIn(m.items);
   let h = `<div class="mhead">
     <div class="art mhead-art">${art(m, { brush: true })}</div>
     <a class="back" href="#/">${ICON.back} All modules</a>
     <div class="mtitle"><div><div class="zhT">${esc(m.zh)}</div><h1>${esc(m.title)}</h1></div></div>
-    <div class="mstats">${m.items.length} phrases · <span id="kCount">${k}</span> known${id === "fav" ? ` · ${keyList.length} card${keyList.length === 1 ? "" : "s"}` : ""}</div>
+    <div class="mstats">${m.items.length} phrases · <span id="kCount">${knownIn(m.items)}</span> known${id === "fav" ? ` · ${keyList.length} card${keyList.length === 1 ? "" : "s"}` : ""}${md ? ` · ${MEDAL[md]} ${MEDAL_NAME[md]}` : ""}</div>
     <div class="mbtns">
       ${m.items.length ? `<button class="btn primary" data-act="practice">${ICON.play} Practise</button>` : ""}
       ${id === "mine" ? `<button class="btn ghost" data-act="edit-mine">Edit list</button>` : ""}
     </div>
   </div>`;
   if (id === "mine") h += mineEditorHTML(!m.items.length);
-  h += keysHTML(keyList, id === "fav");
   if (id === "fav" && !m.items.length && !keyList.length) h += `<div class="empty">Nothing saved yet. Tap ☆ on any phrase or any "Remember these" card and it will show up here.</div>`;
+  h += `<div id="tabsAt"></div>${view.tabs.length > 1 ? `<div class="tabs" id="tabs" role="tablist">${tabsHTML()}</div>` : ""}<div id="pane">${paneHTML()}</div>`;
+  app.innerHTML = h;
+  centreTab();
+}
+function groupHTML(g) {
+  const items = visible(g.items);
+  return items.length ? `<section class="group" data-sec><h3>${esc(g.title)} <span>${esc(g.zh)}</span><em>${items.length}</em></h3><div class="list">${items.map(p => rowHTML(p)).join("")}</div></section>` : "";
+}
+function pagerHTML() {
+  const seq = view.tabs.filter(t => t.id !== "all" || view.mod.id === "fav"), j = seq.findIndex(t => t.id === view.tab), prev = seq[j - 1], next = seq[j + 1];
+  if (seq.length < 2) return "";
+  return `<div class="pager">${prev ? `<button class="btn ghost" data-tab="${prev.id}">← ${esc(prev.label)}</button>` : ""}${next
+    ? `<button class="btn primary" data-tab="${next.id}">Next: ${esc(next.label)} →</button>`
+    : view.mod.items.length ? `<button class="btn primary" data-act="practice">${ICON.play} Practise this module</button>` : ""}</div>`;
+}
+// What shows under the tabs.
+function paneHTML() {
+  const m = view.mod, fav = m.id === "fav", multi = view.tabs.length > 1, t = view.tab, all = t === "all" || !multi;
+  if (t === "keys") return keysHTML(view.keyList, fav) + pagerHTML();
+  let h = all && fav ? keysHTML(view.keyList, true) : "";
   if (m.items.length) {
-    h += `<div class="filters"><div class="wrap" style="padding:0">
+    h += `<div class="tools">
       <div class="seg" id="lvlSeg">${["all", "E", "M", "H"].map(l => `<button data-lvl="${l}" aria-pressed="${view.level === l}">${l === "all" ? "All" : LV[l]}</button>`).join("")}</div>
       <label class="switch">Hide known <input type="checkbox" id="hideKnown" ${view.hideKnown ? "checked" : ""}></label>
-      ${m.groups.length > 1 ? `<div class="jump">${m.groups.map((g, i) => `<button data-jump="g${i}">${esc(g.title)}</button>`).join("")}</div>` : ""}
-    </div></div>`;
-    let any = false;
-    m.groups.forEach((g, i) => {
-      const items = visible(g.items);
-      if (!items.length) return;
-      any = true;
-      h += `<section class="group" id="g${i}"><h3>${esc(g.title)} <span>${esc(g.zh)}</span><em>${items.length}</em></h3><div class="list">${items.map(p => rowHTML(p)).join("")}</div></section>`;
-    });
-    if (!any) h += `<div class="empty">Nothing to show with these filters. Try another level or turn off "Hide known".</div>`;
+      ${all ? "" : `<span class="grow"></span><button class="btn small" data-act="practice-topic">${ICON.play} Practise topic</button>`}
+    </div>`;
+    h += (all ? m.groups : [m.groups[+t]]).map(groupHTML).join("") || `<div class="empty">Nothing to show with these filters. Try another level or turn off "Hide known".</div>`;
   }
-  app.innerHTML = h;
+  return h + (all ? "" : pagerHTML());
 }
-// "Remember these" box: a module's optional  keys  text, one "Title | explanation" per line.
+function renderPane() { $("#pane").innerHTML = paneHTML(); updateFabs(); }
+function setTab(id) {
+  view.tab = id;
+  if (view.mod.id === "fav") view.favTab = id; else { tabState[view.mod.id] = id; store.set("mt_tab_v1", tabState); }
+  const tabs = $("#tabs");
+  if (tabs) { tabs.innerHTML = tabsHTML(); centreTab(); }
+  $("#pane").innerHTML = paneHTML();
+  // start the new topic at its top, just under the tab row
+  const y = $("#tabsAt").getBoundingClientRect().top + window.scrollY - $(".top").offsetHeight;
+  if (window.scrollY > y) window.scrollTo(0, y);
+  updateFabs();
+}
+// "Remember these" cards: a module's optional  keys  text, one "Title | explanation" per line.
 // On the Favourites page (showMod) each card also says which module it came from.
 function keysHTML(keys, showMod) {
   if (!keys.length) return "";
-  return `<details class="keys"${showMod || store.get("mt_keys_open_v1", true) ? " open" : ""}><summary>${showMod ? "Saved cards" : "Remember these"} <span>${showMod ? "收藏的要点" : "记住这几点"}</span><em>${keys.length}</em></summary>
-    <div class="keys-grid">${keys.map(k => `<div class="key" data-key="${k.id}"><button class="kstar" data-act="fav-key" aria-pressed="${favKeys.has(k.id)}" aria-label="Save card to favourites">${ICON.star}</button>${k.t ? `<b>${esc(k.t)}</b>` : ""}<span>${esc(k.b)}</span>${showMod ? `<i>${esc(BY[k.mod].title)}</i>` : ""}</div>`).join("")}</div></details>`;
+  return `<section class="keys" data-sec><h3>${showMod ? "Saved cards" : "Remember these"} <span>${showMod ? "收藏的要点" : "记住这几点"}</span><em>${keys.length}</em></h3>
+    <div class="keys-grid">${keys.map(k => `<div class="key" data-key="${k.id}"><button class="kstar" data-act="fav-key" aria-pressed="${favKeys.has(k.id)}" aria-label="Save card to favourites">${ICON.star}</button>${k.t ? `<b>${esc(k.t)}</b>` : ""}<span>${esc(k.b)}</span>${showMod ? `<i>${esc(BY[k.mod].title)}</i>` : ""}</div>`).join("")}</div></section>`;
 }
 function mineEditorHTML(open) {
   return `<div class="editor" id="mineEditor" ${open ? "" : "hidden"}>
@@ -637,6 +903,7 @@ M | Who is the purser today? | 今天的乘务长是谁？">${esc(store.get("mt_
 let searchIndex = null;
 function renderSearch(q) {
   document.title = "Search · Mandarin Talk";
+  view.mod = null; view.tabs = null;
   if (!searchIndex) searchIndex = ALL.map(p => [p, (p.en + " " + (p.note || "")).toLowerCase(), p.zh, strip(pyText(p)), strip(pyText(p)).replace(/ /g, "")]);
   const raw = q.trim(), ql = raw.toLowerCase(), qs = strip(raw).replace(/\s+/g, "");
   const hits = searchIndex.filter(([p, en, zh, py, pyn]) => en.includes(ql) || zh.includes(raw) || (qs.length > 1 && pyn.includes(qs))).map(x => x[0]);
@@ -650,47 +917,107 @@ function renderSearch(q) {
 
 /* ───────────── router ───────────── */
 function route() {
-  const q = $("#q").value.trim();
-  if (q) return renderSearch(q);
-  const m = location.hash.match(/^#\/m\/([\w-]+)/);
-  if (m) renderModule(m[1]); else renderHome();
+  const q = $("#q").value.trim(), m = location.hash.match(/^#\/m\/([\w-]+)/);
+  let page = "home";
+  if (q) { page = "search"; renderSearch(q); }
+  else if (m) { page = m[1] === "fav" ? "fav" : "module"; renderModule(m[1]); }
+  else if (location.hash === "#/me") { page = "me"; renderMe(); }
+  else renderHome();
+  view.page = page;
+  document.querySelectorAll(".tb[data-nav]").forEach(a => a.dataset.nav === page ? a.setAttribute("aria-current", "page") : a.removeAttribute("aria-current"));
+  const nf = favs.size + favKeys.size;
+  $("#tbFav").textContent = nf ? (nf > 99 ? "99+" : nf) : "";
+  updateFabs();
 }
-window.addEventListener("hashchange", () => { $("#q").value = ""; route(); window.scrollTo(0, 0); });
+window.addEventListener("hashchange", () => { $("#q").value = ""; route(); window.scrollTo(0, 0); updateFabs(); });
 let qT;
 $("#q").addEventListener("input", () => { clearTimeout(qT); qT = setTimeout(route, 120); });
 
+/* ───────────── bottom tab bar + floating buttons ───────────── */
+function dailyPractice() {
+  // Practise from the module in progress (or the first unfinished one), just enough cards to reach today's goal.
+  const last = BY[store.get("mt_last_v1", "")];
+  const src = [last].concat(MODS).find(m => m && m.items.some(p => !known.has(p.id)));
+  const n = Math.max(5, Math.min(20, G.goal - today()[0]));
+  startPractice(src ? src.items : ALL, src ? "Today · " + src.title : "Today", n);
+}
+$("#tabbar").addEventListener("click", e => {
+  const b = e.target.closest(".tb");
+  if (!b) return;
+  if (b.dataset.go === "practice") return dailyPractice();
+  if (b.dataset.go === "search") { window.scrollTo(0, 0); $("#q").focus(); return; }
+  // a link: leave any search, and if we are already on that page just go back to its top
+  const same = b.getAttribute("href") === (location.hash || "#/");
+  if ($("#q").value) { $("#q").value = ""; if (same) route(); }
+  if (same) window.scrollTo(0, 0);
+});
+const calm = window.matchMedia("(prefers-reduced-motion: reduce)");
+const scrollToY = y => window.scrollTo({ top: Math.max(0, y), behavior: calm.matches ? "auto" : "smooth" });
+const stickyBottom = () => $(".top").offsetHeight + ($("#tabs") ? $("#tabs").offsetHeight : 0);
+// Where "Next" goes: the next topic tab on a module page, otherwise the next section heading further down.
+function nextTarget() {
+  if (view.tabs && view.tabs.length > 1 && view.tab !== "all") {
+    const seq = view.tabs.filter(t => t.id !== "all" || view.mod.id === "fav"), nx = seq[seq.findIndex(t => t.id === view.tab) + 1];
+    return nx ? { tab: nx } : null;
+  }
+  const off = stickyBottom() + 30;
+  const el = [...app.querySelectorAll("[data-sec]")].find(s => s.getBoundingClientRect().top > off);
+  return el ? { el } : null;
+}
+function updateFabs() {
+  const y = window.scrollY, t = nextTarget(), nb = $("#fabNext");
+  $("#fabTop").hidden = y < 500;
+  nb.hidden = !t || y < 200;
+  if (t) nb.innerHTML = t.tab ? "Next topic " + ICON.right : "Next section " + ICON.down;
+}
+$("#fabTop").addEventListener("click", () => scrollToY(0));
+$("#fabNext").addEventListener("click", () => {
+  const t = nextTarget();
+  if (!t) return;
+  if (t.tab) setTab(t.tab.id); else scrollToY(t.el.getBoundingClientRect().top + window.scrollY - stickyBottom() - 12);
+});
+let fabT = 0;
+window.addEventListener("scroll", () => { if (!fabT) fabT = setTimeout(() => { fabT = 0; updateFabs(); }, 90); }, { passive: true });
+
 /* ───────────── clicks ───────────── */
 app.addEventListener("click", e => {
-  const b = e.target.closest("[data-act],[data-lvl],[data-jump]");
+  const b = e.target.closest("[data-act],[data-lvl],[data-tab],[data-cat],[data-goal]");
   if (!b) return;
-  if (b.dataset.lvl) { view.level = b.dataset.lvl; route(); return; }
-  if (b.dataset.jump) {
-    // Land just below the sticky bars, whatever height they are at the current text size.
-    const g = document.getElementById(b.dataset.jump), f = $(".filters");
-    if (g) window.scrollTo({ top: g.getBoundingClientRect().top + window.scrollY - $(".top").offsetHeight - (f ? f.offsetHeight : 0) - 12, behavior: "smooth" });
-    return;
+  if (b.dataset.lvl) { view.level = b.dataset.lvl; renderPane(); return; }
+  if (b.dataset.tab) { setTab(b.dataset.tab); return; }
+  if (b.dataset.cat) { view.cat = b.dataset.cat; renderHome(); updateFabs(); return; }
+  if (b.dataset.goal) {
+    G.goal = +b.dataset.goal;
+    const d = G.days[dayKey()]; if (d && d[0] >= G.goal) d[1] = 1;
+    saveG(); route(); return;
   }
   const act = b.dataset.act, row = b.closest(".row"), p = row && ALL.find(x => x.id === row.dataset.id);
   if (act === "say" && p) speak(p.zh, row.querySelector(".say"));
   else if (act === "known" && p) {
-    known.has(p.id) ? known.delete(p.id) : known.add(p.id); saveKnown();
+    if (known.has(p.id)) { known.delete(p.id); saveKnown(); }
+    else withRewards(p, () => { known.add(p.id); saveKnown(); bump(p.id); });
     const k = known.has(p.id);
     row.classList.toggle("is-known", k); b.setAttribute("aria-pressed", k);
     const kc = $("#kCount"); if (kc && view.mod) kc.textContent = knownIn(view.mod.items);
+    const tabs = $("#tabs"); if (tabs) { const x = tabs.scrollLeft; tabs.innerHTML = tabsHTML(); tabs.scrollLeft = x; }
   }
   else if (act === "fav" && p) {
     favs.has(p.id) ? favs.delete(p.id) : favs.add(p.id); saveFavs();
     b.setAttribute("aria-pressed", favs.has(p.id));
+    $("#tbFav").textContent = favs.size + favKeys.size || "";
     toast(favs.has(p.id) ? "Saved to Favourites." : "Removed from Favourites.");
   }
   else if (act === "fav-key") {
     const id = b.closest(".key").dataset.key;
     favKeys.has(id) ? favKeys.delete(id) : favKeys.add(id); saveFavs();
     b.setAttribute("aria-pressed", favKeys.has(id));
+    $("#tbFav").textContent = favs.size + favKeys.size || "";
     toast(favKeys.has(id) ? "Card saved to Favourites." : "Card removed from Favourites.");
   }
   else if (act === "practice") { const m = view.mod; if (m) startPractice(visible(m.items).length ? visible(m.items) : m.items, m.title); }
-  else if (act === "practice-all") startPractice(ALL, "All modules", 20);
+  else if (act === "practice-topic") { const g = view.mod && view.mod.groups[+view.tab]; if (g) startPractice(visible(g.items).length ? visible(g.items) : g.items, g.title); }
+  else if (act === "daily") dailyPractice();
+  else if (act === "settings") { pickVoice(); toggleSheet(true); }
   else if (act === "practice-search") startPractice(renderSearch.hits || [], "Search");
   else if (act === "clear-search") { $("#q").value = ""; }
   else if (act === "edit-mine") { const ed = $("#mineEditor"); ed.hidden = !ed.hidden; if (!ed.hidden) $("#mineText").focus(); }
@@ -703,9 +1030,7 @@ app.addEventListener("click", e => {
     (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(() => toast("Copied."), () => { $("#mineText").select(); toast("Selected — press copy."); });
   }
 });
-app.addEventListener("change", e => { if (e.target.id === "hideKnown") { view.hideKnown = e.target.checked; route(); } });
-// Opening or closing the "Remember these" box is remembered for every module.
-app.addEventListener("toggle", e => { if (e.target.classList && e.target.classList.contains("keys") && (view.mod || {}).id !== "fav") store.set("mt_keys_open_v1", e.target.open); }, true);
+app.addEventListener("change", e => { if (e.target.id === "hideKnown") { view.hideKnown = e.target.checked; renderPane(); } });
 
 /* ───────────── settings ───────────── */
 function applySettings() {
@@ -750,7 +1075,7 @@ function startPractice(items, title, limit) {
   const unknown = items.filter(p => !known.has(p.id));
   const pool = shuffle((unknown.length ? unknown : items).slice());
   pr.deck = limit ? pool.slice(0, limit) : pool.slice(0, 30);
-  pr.i = 0; pr.got = 0; pr.shown = false; pr.title = title; pr.src = [items, title, limit];
+  pr.i = 0; pr.got = 0; pr.pts = 0; pr.cheered = false; pr.shown = false; pr.title = title; pr.src = [items, title, limit];
   $("#pr").classList.add("open"); document.body.style.overflow = "hidden";
   drawCard();
 }
@@ -762,7 +1087,9 @@ function drawCard() {
   if (pr.i >= n) {
     $("#prCount").textContent = pr.title;
     flash.className = "flash done";
-    flash.innerHTML = `<h2>Round done 🎉</h2><p>${pr.got} of ${n} marked as known.</p>`;
+    flash.innerHTML = `<h2>Round done 🎉</h2><p>${pr.got} of ${n} marked as known · +${pr.pts} pts</p>
+      <p>Today: ${today()[0]} of ${G.goal}${today()[1] ? " ✓" : ""} · 🔥 ${streak()}-day streak</p>`;
+    if (pr.got && !pr.cheered) { pr.cheered = true; confetti(); }
     btns.innerHTML = `<button class="btn ghost" data-pr="close">Close</button><button class="btn primary" data-pr="again-round">Another round</button>`;
     return;
   }
@@ -789,8 +1116,12 @@ function drawCard() {
 function prAct(a) {
   const p = pr.deck[pr.i];
   if (a === "show") { pr.shown = true; drawCard(); }
-  else if (a === "again" && pr.shown) { pr.deck.splice(pr.i, 1); pr.deck.splice(Math.min(pr.i + 3, pr.deck.length), 0, p); pr.shown = false; drawCard(); }
-  else if (a === "got" && pr.shown) { known.add(p.id); saveKnown(); pr.got++; pr.i++; pr.shown = false; drawCard(); }
+  else if (a === "again" && pr.shown) { G.reviews++; saveG(); pr.pts += 2; pr.deck.splice(pr.i, 1); pr.deck.splice(Math.min(pr.i + 3, pr.deck.length), 0, p); pr.shown = false; drawCard(); }
+  else if (a === "got" && pr.shown) {
+    const x0 = xp();
+    withRewards(p, () => { known.add(p.id); saveKnown(); G.reviews++; saveG(); bump(p.id); });
+    pr.pts += xp() - x0; pr.got++; pr.i++; pr.shown = false; drawCard();
+  }
   else if (a === "say" && p) speak(p.zh, document.querySelector(".say-big"));
   else if (a === "fav" && p) {
     favs.has(p.id) ? favs.delete(p.id) : favs.add(p.id); saveFavs();
