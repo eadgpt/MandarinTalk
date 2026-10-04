@@ -16,7 +16,7 @@ C-suite = 首席 + … + 官 | CEO 首席执行官 · CFO 首席财务官 · COO
 Drop the "deputy" | A deputy GM is a 副总, but to their face you still say 王总 — never 王副总.
 Conclusion first | Open with 我先说结论, give one sentence, then the detail. Leaders want the bottom line.
 请示 before, 汇报 after | 请示 qǐngshì = ask for instructions before you act. 汇报 huìbào = report on what was done.
-Soften every request | Start with 麻烦您… (may I trouble you), 方便…吗 (is it convenient) or 您看… (as you see it).
+Soften every request | Start with 麻烦[fan]您… (may I trouble you), 方便…吗 (is it convenient) or 您看… (as you see it).
 Disagree humbly | 我有一个不太成熟的想法 — "I have a not-very-ripe idea". Then say what you really think.
 Seniors go first | Through doors, into lifts, to the table, in toasts: 您先请.
 `,

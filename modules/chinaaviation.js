@@ -12,8 +12,8 @@ MT.module({
   art: "clouds",
   keys: `
 The Big Three = compass | 国航 CA → Beijing (the nation's capital). 东航 MU → Shanghai (east coast). 南航 CZ → Guangzhou (the south).
-Short name = place + 航 | 川航 Sichuan · 厦航 Xiamen · 深航 Shenzhen · 山航 Shandong · 海航 Hainan · 上航 Shanghai.
-Logos | 国航 phoenix · 东航 swallow · 南航 red kapok flower · 厦航 egret · 春秋 green "S".
+Short name = place + 航 | 川航 Sichuan · 厦[xià]航 Xiamen · 深航 Shenzhen · 山航 Shandong · 海航 Hainan · 上航 Shanghai.
+Logos | 国航 phoenix · 东航 swallow · 南航 red kapok flower · 厦[xià]航 egret · 春秋 green "S".
 Codes from old spellings | PEK Peking · CAN Canton · CKG Chungking · TAO Tsingtao · NKG Nanking · CGO Chengchow.
 Two-airport cities | Beijing: 首都 PEK + 大兴 PKX. Shanghai: 浦东 PVG + 虹桥 SHA. Chengdu: 双流 CTU + 天府 TFU. Always ask which.
 Provinces come in pairs | 山东/山西 (mountains) · 河北/河南 (Yellow River) · 湖北/湖南 (lake) · 广东/广西. 东 east · 西 west · 南 south · 北 north.

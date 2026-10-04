@@ -149,9 +149,14 @@ svg{display:block}
 .key{background:var(--amber-soft);border-radius:10px;padding:10px 42px 10px 12px;position:relative}
 .kstar{position:absolute;top:4px;right:4px;width:34px;height:34px;border-radius:9px;display:grid;place-items:center;color:var(--amber);opacity:.6}
 .kstar:hover,.kstar[aria-pressed="true"]{opacity:1}
-.key i{display:block;font-style:normal;font-size:max(12px,calc(12px*var(--fs)));color:var(--muted);margin-top:4px}
-.key b{display:block;font-size:calc(14px*var(--fs));color:var(--amber);margin-bottom:2px}
-.key span{display:block;font-size:calc(14px*var(--fs));line-height:1.5;color:var(--ink)}
+.key>i{display:block;font-style:normal;font-size:max(12px,calc(12px*var(--fs)));color:var(--muted);margin-top:4px}
+.key>b{display:block;font-size:calc(14px*var(--fs));color:var(--amber);margin-bottom:2px}
+.key>span{display:block;font-size:calc(14px*var(--fs));line-height:1.5;color:var(--ink)}
+/* Chinese words on a card: character with pinyin underneath, a little smaller than in the phrase list */
+.key .c{margin:0 1px 3px;vertical-align:baseline}
+.key .c b{font-size:calc(17px*var(--fs));line-height:1.2}
+.key>b .c b{color:inherit;font-weight:600}
+.key .c i{font-size:max(12px,calc(12px*var(--fs)))}
 .empty{padding:40px 16px;text-align:center;color:var(--muted)}
 .section-note{font-size:max(12px,calc(13px*var(--fs)));color:var(--muted);margin:16px 0 0}
 
@@ -608,6 +613,21 @@ function zhHTML(p) {
     : `<span class="c x"><b>${esc(c.ch)}</b><i></i></span>`).join("");
 }
 
+// Chinese inside ordinary text (the "Remember these" cards): every run of characters gets pinyin underneath,
+// the same way phrases do. 字[pīn] fixes a reading, as in phrase lines.
+function zhInline(text) {
+  let out = "", last = 0, m;
+  const re = /(?:[一-鿿](?:\[[^\]]*\])?)+/g;
+  while ((m = re.exec(text))) {
+    let zh = "";
+    const ov = {};
+    m[0].replace(/([一-鿿])(?:\[([^\]]*)\])?/g, (all, ch, py) => { if (py) ov[zh.length] = py.trim(); zh += ch; });
+    out += esc(text.slice(last, m.index)) + zhHTML({ zh, ov });
+    last = m.index + m[0].length;
+  }
+  return out + esc(text.slice(last));
+}
+
 /* ───────────── speech ───────────── */
 let voice = null, warnedVoice = false, playingBtn = null;
 function pickVoice() {
@@ -667,7 +687,8 @@ function rebuildIndex() {
 function keysOf(m) {
   return String(m.keys || "").split("\n").map(l => l.trim()).filter(l => l && !l.startsWith("//")).map(l => {
     const i = l.indexOf("|"), t = i < 0 ? "" : l.slice(0, i).trim(), b = i < 0 ? l : l.slice(i + 1).trim();
-    return { id: m.id + "~" + hash(t + "|" + b), mod: m.id, t, b };
+    const plain = s => s.replace(/([一-鿿])\[[^\]]*\]/g, "$1");   // the id ignores 字[pīn] fixes, so adding one never un-saves a card
+    return { id: m.id + "~" + hash(plain(t) + "|" + plain(b)), mod: m.id, t, b };
   });
 }
 function buildFav() {
@@ -891,7 +912,7 @@ function setTab(id) {
 function keysHTML(keys, showMod) {
   if (!keys.length) return "";
   return `<section class="keys" data-sec><h3>${showMod ? "Saved cards" : "Remember these"} <span>${showMod ? "收藏的要点" : "记住这几点"}</span><em>${keys.length}</em></h3>
-    <div class="keys-grid">${keys.map(k => `<div class="key" data-key="${k.id}"><button class="kstar" data-act="fav-key" aria-pressed="${favKeys.has(k.id)}" aria-label="Save card to favourites">${ICON.star}</button>${k.t ? `<b>${esc(k.t)}</b>` : ""}<span>${esc(k.b)}</span>${showMod ? `<i>${esc(BY[k.mod].title)}</i>` : ""}</div>`).join("")}</div></section>`;
+    <div class="keys-grid">${keys.map(k => `<div class="key" data-key="${k.id}"><button class="kstar" data-act="fav-key" aria-pressed="${favKeys.has(k.id)}" aria-label="Save card to favourites">${ICON.star}</button>${k.t ? `<b>${zhInline(k.t)}</b>` : ""}<span>${zhInline(k.b)}</span>${showMod ? `<i>${esc(BY[k.mod].title)}</i>` : ""}</div>`).join("")}</div></section>`;
 }
 function mineEditorHTML(open) {
   return `<div class="editor" id="mineEditor" ${open ? "" : "hidden"}>

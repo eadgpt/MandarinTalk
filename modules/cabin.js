@@ -7,11 +7,11 @@ MT.module({
   zh: "客舱服务",
   added: "2026-10-02",
   keys: `
-系 is jì here | 系好安全带 — fasten your seat belt. 系 is normally xì, but jì when it means "to tie".
+系[jì] is jì here | 系[jì]好安全带 — fasten your seat belt. 系 is normally xì, but jì when it means "to tie".
 A or B? Use 还是 | 茶还是咖啡？ tea or coffee? 热水还是凉水？ hot or cold water?
 Short offers | 要…吗？ = "would you like…?" 要加冰吗？ 要加糖和奶吗？
 请把… for instructions | 请把 + thing + action: 请把手机调到飞行模式 — "please take the phone and switch it to flight mode".
-Four safety checks | 系好安全带 belt · 调直靠背 seat upright · 收起小桌板 tray stowed · 打开遮光板 shade open.
+Four safety checks | 系[jì]好安全带 belt · 调直靠背 seat upright · 收起小桌板 tray stowed · 打开遮光板 shade open.
 我来 + verb | The natural way to offer help: 我来帮您放行李 — "let me help with your bag".
 `,
   phrases: `
