@@ -103,7 +103,7 @@ svg{display:block}
 .mtitle .zhT{font:600 calc(clamp(24px,4vw,32px)*var(--fs))/1.15 var(--zh-serif);color:var(--accent)}
 .mtitle .grow{flex:1}
 .mstats{color:var(--muted);font-size:calc(14px*var(--fs));margin-top:6px}
-.mbtns{display:flex;gap:8px;margin-top:14px}
+.mbtns{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
 .mbtns:empty{display:none}
 .seg{display:inline-flex;background:var(--surface-2);border-radius:10px;padding:3px}
 .seg button{height:30px;padding:0 12px;border-radius:8px;font-size:max(12px,calc(13px*var(--fs)));font-weight:600;color:var(--ink-2)}
@@ -173,6 +173,7 @@ svg{display:block}
 .sheet.open,.sheet-bg.open{display:block}
 .sheet{max-height:calc(100vh - 84px);max-height:calc(100dvh - 84px - env(safe-area-inset-top));overflow-y:auto}
 #fsSeg{align-items:center}
+.sheet .opt{gap:6px 10px;flex-wrap:wrap}
 #fsSeg span{min-width:3.4em;text-align:center;font-size:max(12px,calc(13px*var(--fs)));font-weight:600}
 .seg button:disabled{opacity:.35;cursor:default}
 .sheet h4{margin:10px 0 4px;font-size:max(12px,calc(12px*var(--fs)));text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
@@ -356,6 +357,23 @@ body{padding-bottom:calc(66px + env(safe-area-inset-bottom))}
 .mrow span{font-size:20px;letter-spacing:2px;white-space:nowrap}
 .mrow span u{text-decoration:none;opacity:.22;filter:grayscale(1)}
 .mrow em{font-style:normal;font-size:max(12px,calc(13px*var(--fs)));color:var(--muted);min-width:3em;text-align:right}
+/* ── say it and compare ── */
+.sh-en{font-size:calc(15px*var(--fs));color:var(--ink-2)}
+.sh-steps{display:flex;justify-content:center;gap:6px;flex-wrap:wrap}
+.sh-steps span{padding:4px 10px;border-radius:14px;background:var(--surface-2);color:var(--muted);font-size:max(12px,calc(13px*var(--fs)));font-weight:600;transition:background .25s,color .25s}
+.sh-steps span.on{background:var(--accent);color:var(--accent-ink)}
+.sh-mic{align-self:center;width:92px;height:92px;border-radius:50%;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font-size:38px;line-height:1;transition:background .25s,transform .15s}
+.sh-mic:active{transform:scale(.94)}
+[data-state="listen"] .sh-mic,[data-state="compare"] .sh-mic{background:var(--surface-2)}
+[data-state="rec"] .sh-mic{background:#d43b3b;color:#fff;animation:recpulse 1.1s ease-in-out infinite}
+@keyframes recpulse{50%{box-shadow:0 0 0 14px rgba(212,59,59,.18)}}
+.sh-meter{--lv:0;display:flex;align-items:center;justify-content:center;gap:5px;height:34px}
+.sh-meter i{width:6px;border-radius:3px;background:var(--line);height:calc(6px + 28px * var(--lv) * var(--k,1));transition:height .08s linear,background .2s}
+[data-state="rec"] .sh-meter i{background:#d43b3b}
+.sh-meter i:nth-child(1),.sh-meter i:nth-child(9){--k:.35}.sh-meter i:nth-child(2),.sh-meter i:nth-child(8){--k:.6}
+.sh-meter i:nth-child(3),.sh-meter i:nth-child(7){--k:.8}.sh-meter i:nth-child(4),.sh-meter i:nth-child(6){--k:.95}
+.sh-msg{font-size:calc(14px*var(--fs));font-weight:600;color:var(--ink-2);min-height:1.5em}
+.ic.shadow:hover{color:var(--accent);border-color:var(--accent)}
 .confetti{position:fixed;inset:0;pointer-events:none;z-index:70;overflow:hidden}
 .confetti i{position:absolute;top:-24px;width:9px;height:14px;border-radius:2px;animation:fall 1.6s ease-in forwards}
 @keyframes fall{to{transform:translateY(110vh) rotate(600deg)}}
@@ -433,16 +451,26 @@ body{padding-bottom:calc(66px + env(safe-area-inset-bottom))}
   <div class="pr-hint">Space = show answer · 1 = again · 2 = got it · F = save to favourites</div>
 </div>
 
+<div class="pr" id="sh" role="dialog" aria-label="Say it and compare">
+  <div class="pr-top">
+    <button class="icon-btn" data-s="close" aria-label="Close"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    <span class="count" id="shCount"></span><span class="grow"></span><span class="count" id="shDone"></span>
+  </div>
+  <div class="pr-prog"><i id="shBar"></i></div>
+  <div class="pr-body"><div class="flash" id="shCard"></div></div>
+  <div class="pr-btns" id="shBtns"></div>
+</div>
+
 <div class="toast" id="toast"></div>
 
-<script src="lib/pinyin-pro.js"></script>
-<script src="lib/art.js"></script>
+<script src="lib/pinyin-pro.js?v=20261013042753"></script>
+<script src="lib/art.js?v=20261013042753"></script>
 <script>
 // Modules call MT.module({...}) when they load.
 window.MT = { modules: [], failed: [], areas: [], files: [], changelog: [],
   module(def) { if (!this.modules.some(m => m.id === def.id)) this.modules.push(def); } };
 </script>
-<script src="modules/list.js"></script>
+<script src="modules/list.js?v=20261013042753"></script>
 <script>
 (function () {
 "use strict";
@@ -521,6 +549,20 @@ function withRewards(p, change) {
   if (m1 > m0) msgs.push(`${MEDAL[m1]} ${MEDAL_NAME[m1]} medal · ${m.title}`);
   if (msgs.length) { confetti(); toast(msgs.join("  ·  "), 4500); }
 }
+/* ───────────── spaced repetition ─────────────
+   Each "Got it" moves a phrase up a box; the higher the box, the longer before it comes back.
+   SRS[id] = [box, day number it is next due]. "Again" sends it back to the first box, due today. */
+const SRS = store.get("mt_srs_v1", {}), GAPS = [1, 3, 7, 14, 30, 60];
+const saveSRS = () => store.set("mt_srs_v1", SRS);
+const dayNo = () => Math.floor((Date.now() - new Date().getTimezoneOffset() * 6e4) / 864e5);
+function srsGot(id) { const b = SRS[id] ? Math.min(SRS[id][0] + 1, GAPS.length - 1) : 0; SRS[id] = [b, dayNo() + GAPS[b]]; saveSRS(); }
+function srsAgain(id) { SRS[id] = [0, dayNo()]; saveSRS(); }
+const dueItems = () => ALL.filter(p => SRS[p.id] && SRS[p.id][1] <= dayNo());
+// Phrases ticked before reviews existed join in once, spread over the next two weeks so they don't all fall due together.
+if (!store.get("mt_srs_seeded", 0)) {
+  [...known].forEach((id, i) => { if (!SRS[id]) SRS[id] = [1, dayNo() + 1 + i % 14]; });
+  saveSRS(); store.set("mt_srs_seeded", 1);
+}
 function confetti() {
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
   const box = document.createElement("div"), cols = ["var(--accent)", "var(--jade)", "var(--amber)", "var(--t4)", "var(--t2)"];
@@ -547,7 +589,8 @@ const ICON = {
   right: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>',
   down: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>',
   back: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 6l-6 6 6 6"/></svg>',
-  play: '<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M7 5v14l12-7z"/></svg>'
+  play: '<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M7 5v14l12-7z"/></svg>',
+  mic: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>'
 };
 function toast(msg, ms) { const t = $("#toast"); t.textContent = msg; t.classList.add("show"); clearTimeout(toast.t); toast.t = setTimeout(() => t.classList.remove("show"), ms || 2600); }
 
@@ -648,29 +691,49 @@ if ("speechSynthesis" in window) { pickVoice(); speechSynthesis.onvoiceschanged 
 const clip = new Audio();
 try { if (navigator.audioSession) navigator.audioSession.type = "playback"; } catch (e) {}
 const onlineUrl = t => "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=zh-CN&q=" + encodeURIComponent(t.slice(0, 190));
+// Returns true if the built-in voice was cut off mid-sentence (the next line then needs a short pause before it).
+let speakNo = 0, saying = null;   // saying keeps the current line alive: Safari drops one that nothing refers to
 function stopAudio() {
   try { clip.pause(); } catch (e) {}
-  if ("speechSynthesis" in window) speechSynthesis.cancel();
+  speakNo++;   // anything still waiting to speak, or to fall back, is now out of date
+  let cut = false;
+  if ("speechSynthesis" in window && (speechSynthesis.speaking || speechSynthesis.pending)) { speechSynthesis.cancel(); cut = true; }
   if (playingBtn) playingBtn.classList.remove("playing");
+  return cut;
 }
-function speak(text, btn) {
-  stopAudio();
+function playOnline(text, done) {
+  clip.onended = done;
+  clip.onerror = () => { done(); toast("The online voice didn't load. Check your internet, or pick \"This device\" voice in settings."); };
+  clip.src = onlineUrl(text);
+  clip.defaultPlaybackRate = clip.playbackRate = S.slow ? 0.7 : 1;
+  clip.play().catch(err => { if (err && err.name !== "AbortError") clip.onerror(); });
+}
+// then (optional) runs once the line has finished playing.
+function speak(text, btn, then) {
+  const cut = stopAudio(), no = ++speakNo;
   if (btn) { btn.classList.add("playing"); playingBtn = btn; }
-  const done = () => { if (btn) btn.classList.remove("playing"); };
-  if (S.engine === "online" && navigator.onLine !== false) {
-    clip.onended = done;
-    clip.onerror = () => { done(); toast("The online voice didn't load. Check your internet, or pick \"This device\" voice in settings."); };
-    clip.src = onlineUrl(text);
-    clip.defaultPlaybackRate = clip.playbackRate = S.slow ? 0.7 : 1;
-    clip.play().catch(err => { if (err && err.name !== "AbortError") clip.onerror(); });
-    return;
-  }
+  let over = false;
+  const done = () => { if (btn) btn.classList.remove("playing"); if (then && !over && no === speakNo) { over = true; then(); } };
+  if (S.engine === "online" && navigator.onLine !== false) return playOnline(text, done);
   if (!("speechSynthesis" in window)) { done(); toast("This browser can't play audio. Try the online voice in settings."); return; }
-  const u = new SpeechSynthesisUtterance(text);
+  pickVoice();
+  const u = saying = new SpeechSynthesisUtterance(text);
   u.lang = "zh-CN"; if (voice) u.voice = voice;
   u.rate = S.slow ? 0.6 : 0.9;
-  u.onend = u.onerror = done;
-  speechSynthesis.speak(u);
+  let started = false;
+  u.onstart = () => { started = true; };
+  u.onend = done;
+  u.onerror = e => { done(); if (!started && no === speakNo && e.error !== "interrupted" && e.error !== "canceled") fallBack(); };
+  // If the phone's own voice never starts, play the online one instead so there is always sound.
+  const fallBack = () => { if (no !== speakNo || navigator.onLine === false) return; speechSynthesis.cancel(); playOnline(text, done); if (!warnedVoice) { warnedVoice = true; toast("This device's voice didn't start, so the online voice is playing instead."); } };
+  const go = () => {
+    if (no !== speakNo) return;
+    try { speechSynthesis.resume(); } catch (e) {}
+    speechSynthesis.speak(u);
+    setTimeout(() => { if (!started && no === speakNo) fallBack(); }, 1800);
+  };
+  // iPhone loses a line that is spoken straight after another one is cancelled, so leave a short gap
+  if (cut) setTimeout(go, 90); else go();
   if (!voice && !warnedVoice && speechSynthesis.getVoices().length) { warnedVoice = true; toast("No Mandarin voice on this device. Try the online voice in settings."); }
 }
 
@@ -717,6 +780,7 @@ function rowHTML(p, showMod) {
     <button class="zh" data-act="say" aria-label="Play ${esc(p.zh)}">${zhHTML(p)}</button>
     <div class="acts">
       <button class="ic say" data-act="say" aria-label="Play audio">${ICON.say}</button>
+      <button class="ic shadow" data-act="shadow" aria-label="Say it and compare with the model" title="Say it and compare">${ICON.mic}</button>
       <button class="ic tick" data-act="known" aria-pressed="${k}" aria-label="Mark as known">${ICON.tick}</button>
       <button class="ic star" data-act="fav" aria-pressed="${favs.has(p.id)}" aria-label="Save to favourites">${ICON.star}</button>
     </div>
@@ -736,7 +800,7 @@ function renderHome() {
     <div class="ring" style="--p:${Math.min(100, t[0] / G.goal * 100)}"><div><b>${t[0]}</b><small>of ${G.goal}</small></div></div>
     <div class="goal-txt">
       <div class="goal-h">${t[1] ? "Goal reached today! 🎉" : t[0] ? `${left} more to hit today's goal` : `Today's goal: ${G.goal} phrases`}</div>
-      <div class="pills"><span class="pill${st ? " hot" : ""}">🔥 ${st ? st + "-day streak" : "Start a streak"}</span><a class="pill" href="#/me">Lv ${lv.n} ${lv.zh}</a><span class="pill">${fmt(xp())} pts</span></div>
+      <div class="pills"><span class="pill${st ? " hot" : ""}">🔥 ${st ? st + "-day streak" : "Start a streak"}</span><a class="pill" href="#/me">Lv ${lv.n} ${lv.zh}</a><span class="pill">${fmt(xp())} pts</span>${dueItems().length ? `<span class="pill">🔁 ${dueItems().length} to review</span>` : ""}</div>
       <div class="goal-btns"><button class="btn primary small" data-act="daily">${ICON.play} ${t[0] ? "Keep going" : "Start practising"}</button></div>
     </div>
   </section>`;
@@ -859,7 +923,7 @@ function renderModule(id) {
     <div class="mtitle"><div><div class="zhT">${esc(m.zh)}</div><h1>${esc(m.title)}</h1></div></div>
     <div class="mstats">${m.items.length} phrases · <span id="kCount">${knownIn(m.items)}</span> known${id === "fav" ? ` · ${keyList.length} card${keyList.length === 1 ? "" : "s"}` : ""}${md ? ` · ${MEDAL[md]} ${MEDAL_NAME[md]}` : ""}</div>
     <div class="mbtns">
-      ${m.items.length ? `<button class="btn primary" data-act="practice">${ICON.play} Practise</button>` : ""}
+      ${m.items.length ? `<button class="btn primary" data-act="practice">${ICON.play} Practise</button><button class="btn ghost" data-act="shadow-mod">🎙️ Speak</button>` : ""}
       ${id === "mine" ? `<button class="btn ghost" data-act="edit-mine">Edit list</button>` : ""}
     </div>
   </div>`;
@@ -964,7 +1028,10 @@ function dailyPractice() {
   const last = BY[store.get("mt_last_v1", "")];
   const src = [last].concat(MODS).find(m => m && m.items.some(p => !known.has(p.id)));
   const n = Math.max(5, Math.min(20, G.goal - today()[0]));
-  startPractice(src ? src.items : ALL, src ? "Today · " + src.title : "Today", n);
+  // reviews that are due come first, then new phrases fill the rest of today's goal
+  const due = shuffle(dueItems()).slice(0, n), fresh = shuffle((src ? src.items : ALL).filter(p => !known.has(p.id) && !due.includes(p))).slice(0, n - due.length);
+  if (due.length) startPractice(due.concat(fresh), "Today · review" + (fresh.length && src ? " + " + src.title : ""), n, true);
+  else startPractice(src ? src.items : ALL, src ? "Today · " + src.title : "Today", n);
 }
 $("#tabbar").addEventListener("click", e => {
   const b = e.target.closest(".tb");
@@ -1018,9 +1085,11 @@ app.addEventListener("click", e => {
   }
   const act = b.dataset.act, row = b.closest(".row"), p = row && ALL.find(x => x.id === row.dataset.id);
   if (act === "say" && p) speak(p.zh, row.querySelector(".say"));
+  else if (act === "shadow" && p) startShadow([p], p.en);
+  else if (act === "shadow-mod") { const m = view.mod; if (m) startShadow(shadowSet(visible(m.items).length ? visible(m.items) : m.items), m.title, () => shadowSet(m.items)); }
   else if (act === "known" && p) {
-    if (known.has(p.id)) { known.delete(p.id); saveKnown(); }
-    else withRewards(p, () => { known.add(p.id); saveKnown(); bump(p.id); });
+    if (known.has(p.id)) { known.delete(p.id); saveKnown(); delete SRS[p.id]; saveSRS(); }
+    else { withRewards(p, () => { known.add(p.id); saveKnown(); bump(p.id); }); srsGot(p.id); }
     const k = known.has(p.id);
     row.classList.toggle("is-known", k); b.setAttribute("aria-pressed", k);
     const kc = $("#kCount"); if (kc && view.mod) kc.textContent = knownIn(view.mod.items);
@@ -1069,6 +1138,8 @@ function applySettings() {
   document.querySelectorAll("#fsSeg button").forEach(b => b.disabled = +b.dataset.fs < 0 ? fi === 0 : fi === FS.length - 1);
   document.querySelectorAll("#themeSeg button").forEach(b => b.setAttribute("aria-pressed", b.dataset.theme === S.theme));
   document.querySelectorAll("#engSeg button").forEach(b => b.setAttribute("aria-pressed", b.dataset.eng === S.engine));
+  // an iPhone or iPad mutes its own voice whenever the ring/silent switch is on silent, so the label says so
+  if (IOS) $('#engSeg [data-eng="device"]').textContent = "This device (not on silent)";
   pickVoice();
   const dark = isDark();
   $("#themeBtn").innerHTML = dark
@@ -1094,6 +1165,7 @@ $("#resetBtn").addEventListener("click", () => {
   if (!confirm("Reset all progress on this device?\n\nKnown marks, points, level, streak and medals go back to zero. Favourites, your own phrases and settings are kept.")) return;
   known.clear(); saveKnown();
   G.days = {}; G.reviews = 0; saveG(); countedToday.clear();
+  Object.keys(SRS).forEach(k => delete SRS[k]); saveSRS();
   Object.keys(tabState).forEach(k => delete tabState[k]); store.set("mt_tab_v1", tabState);
   try { localStorage.removeItem("mt_last_v1"); } catch (e) {}
   Object.assign(view, { level: "all", hideKnown: false, cat: "all", favTab: null });
@@ -1111,12 +1183,13 @@ $("#eraseBtn").addEventListener("click", () => {
 /* ───────────── practice ───────────── */
 const pr = { deck: [], i: 0, shown: false, got: 0, title: "" };
 function shuffle(a) { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
-function startPractice(items, title, limit) {
+// exact = use these items as they are (the daily mix of due reviews and new phrases).
+function startPractice(items, title, limit, exact) {
   if (!items.length) return;
   const unknown = items.filter(p => !known.has(p.id));
-  const pool = shuffle((unknown.length ? unknown : items).slice());
+  const pool = exact ? items.slice() : shuffle((unknown.length ? unknown : items).slice());
   pr.deck = limit ? pool.slice(0, limit) : pool.slice(0, 30);
-  pr.i = 0; pr.got = 0; pr.pts = 0; pr.cheered = false; pr.shown = false; pr.title = title; pr.src = [items, title, limit];
+  pr.i = 0; pr.got = 0; pr.pts = 0; pr.cheered = false; pr.shown = false; pr.title = title; pr.src = [items, title, limit, exact];
   $("#pr").classList.add("open"); document.body.style.overflow = "hidden";
   drawCard();
 }
@@ -1157,10 +1230,11 @@ function drawCard() {
 function prAct(a) {
   const p = pr.deck[pr.i];
   if (a === "show") { pr.shown = true; drawCard(); }
-  else if (a === "again" && pr.shown) { G.reviews++; saveG(); pr.pts += 2; pr.deck.splice(pr.i, 1); pr.deck.splice(Math.min(pr.i + 3, pr.deck.length), 0, p); pr.shown = false; drawCard(); }
+  else if (a === "again" && pr.shown) { G.reviews++; saveG(); srsAgain(p.id); pr.pts += 2; pr.deck.splice(pr.i, 1); pr.deck.splice(Math.min(pr.i + 3, pr.deck.length), 0, p); pr.shown = false; drawCard(); }
   else if (a === "got" && pr.shown) {
     const x0 = xp();
     withRewards(p, () => { known.add(p.id); saveKnown(); G.reviews++; saveG(); bump(p.id); });
+    srsGot(p.id);
     pr.pts += xp() - x0; pr.got++; pr.i++; pr.shown = false; drawCard();
   }
   else if (a === "say" && p) speak(p.zh, document.querySelector(".say-big"));
@@ -1177,13 +1251,156 @@ $("#pr").addEventListener("click", e => { const b = e.target.closest("[data-pr]"
 $("#prClose").addEventListener("click", closePractice);
 $("#dirSeg").addEventListener("click", e => { const b = e.target.closest("button"); if (b) { S.dir = b.dataset.dir; saveS(); pr.shown = false; drawCard(); } });
 document.addEventListener("keydown", e => {
-  if (e.key === "Escape") { if ($("#pr").classList.contains("open")) closePractice(); else toggleSheet(false); return; }
+  if (e.key === "Escape") { if (sh.classList.contains("open")) closeShadow(); else if ($("#pr").classList.contains("open")) closePractice(); else toggleSheet(false); return; }
   if (!$("#pr").classList.contains("open") || e.target.closest("input,textarea")) return;
   if (e.key === " " || e.key === "Enter") { e.preventDefault(); prAct(pr.shown ? "got" : "show"); }
   else if (e.key === "1") prAct("again");
   else if (e.key === "2") prAct("got");
   else if (e.key.toLowerCase() === "p") prAct("say");
   else if (e.key.toLowerCase() === "f") prAct("fav");
+});
+
+/* ───────────── say it and compare ─────────────
+   Hear a phrase, record yourself saying it, then hear the model and your own voice back to back.
+   Nothing is uploaded: the recording stays in the page and is dropped when you move on. */
+const sh = $("#sh");
+let SH = null;
+const mic = { stream: null, rec: null, chunks: [], ctx: null, meter: 0, stop: 0, url: "", mine: new Audio() };
+const SH_MSG = { listen: "Listen to the model…", say: "Your turn — tap the microphone and say it.", rec: "Recording… tap to stop.", compare: "", ask: "How close was it? Try again, or move on." };
+const SH_ICON = { listen: "🔊", say: "🎙️", rec: "⏹", compare: "🔁", ask: "🔁" };
+const audioMode = type => { try { if (navigator.audioSession) navigator.audioSession.type = type; } catch (e) {} };   // an iPhone needs to be told it will record as well as play
+const shadowSet = items => shuffle(items.slice()).slice(0, 8).sort((a, b) => a.zh.length - b.zh.length);   // eight a round, shortest first
+function startShadow(items, title, again) {
+  if (!items.length) return;
+  SH = { items, title, again, i: 0, done: 0, state: "", no: 0, tried: false };
+  audioMode("play-and-record");
+  sh.classList.add("open"); document.body.style.overflow = "hidden";
+  drawShadow();
+}
+function closeShadow() {
+  if (SH) SH.no++;
+  stopRec(true); stopAudio(); mic.mine.pause();
+  if (mic.stream) { mic.stream.getTracks().forEach(t => t.stop()); mic.stream = null; }
+  if (mic.ctx) { try { mic.ctx.close(); } catch (e) {} mic.ctx = null; }
+  if (mic.url) { URL.revokeObjectURL(mic.url); mic.url = ""; }
+  audioMode("playback");
+  sh.classList.remove("open"); document.body.style.overflow = ""; SH = null; route();
+}
+function shState(st, msg) {
+  SH.state = st;
+  const card = $("#shCard"), b = card.querySelector(".sh-mic");
+  if (!b) return;
+  card.dataset.state = st;
+  card.querySelectorAll(".sh-steps span").forEach(x => x.classList.toggle("on", x.dataset.st === (st === "rec" ? "say" : st === "ask" ? "compare" : st)));
+  b.querySelector("span").textContent = SH_ICON[st];
+  b.setAttribute("aria-label", st === "say" ? "Start recording" : st === "rec" ? "Stop recording" : st === "listen" ? "Play the model again" : "Hear both again");
+  $("#shMsg").textContent = msg || SH_MSG[st];
+  $("#shBtns").innerHTML = st === "compare" || st === "ask"
+    ? `<button class="btn ghost" data-s="retry">Try again</button><button class="btn primary" data-s="next">${SH.i + 1 < SH.items.length ? "Next" : "Finish"} →</button>`
+    : `<button class="btn ghost" data-s="model">${ICON.say} Listen again</button><button class="btn ghost" data-s="next">Skip</button>`;
+}
+function drawShadow() {
+  const n = SH.items.length, card = $("#shCard");
+  SH.no++; SH.tried = false;
+  $("#shBar").style.width = (SH.i / n * 100) + "%";
+  $("#shDone").textContent = SH.done ? "🎙️ " + SH.done : "";
+  if (SH.i >= n) {
+    $("#shCount").textContent = SH.title;
+    card.className = "flash done"; delete card.dataset.state;
+    card.innerHTML = `<h2>${SH.done ? "Nicely spoken 🎉" : "Round done"}</h2><p>${SH.done} of ${n} said out loud · +${SH.done * 2} pts</p>`;
+    if (SH.done === n && n > 1) confetti();
+    $("#shBtns").innerHTML = `<button class="btn ghost" data-s="close">Close</button>${SH.again ? `<button class="btn primary" data-s="again">Another round</button>` : ""}`;
+    return;
+  }
+  const p = SH.items[SH.i];
+  $("#shCount").textContent = n > 1 ? `${SH.i + 1} / ${n}` : "Say it";
+  card.className = "flash";
+  card.innerHTML = `<div class="zh${S.pinyin ? "" : " no-py-local"}">${zhHTML(p)}</div><div class="sh-en">${esc(p.en)}</div>
+    <div class="sh-steps"><span data-st="listen">① Listen</span><span data-st="say">② Say it</span><span data-st="compare">③ Compare</span></div>
+    <button class="sh-mic" data-s="mic"><span></span></button>
+    <div class="sh-meter" aria-hidden="true">${"<i></i>".repeat(9)}</div>
+    <div class="sh-msg" id="shMsg"></div>`;
+  card.querySelectorAll(".no-py-local .c i").forEach(i => i.style.visibility = "hidden");
+  playModel();
+}
+function playModel() {
+  const no = ++SH.no, p = SH.items[SH.i];
+  stopRec(true); mic.mine.pause();
+  shState("listen");
+  speak(p.zh, $("#shCard .sh-mic"), () => { if (SH && no === SH.no) shState("say"); });
+}
+async function startRec() {
+  const no = ++SH.no, p = SH.items[SH.i];
+  stopAudio(); mic.mine.pause();
+  if (!mic.stream) {
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia || !window.MediaRecorder) return shState("say", "This browser can't record. Say it out loud anyway, then tap Listen again to compare by ear.");
+    try { mic.stream = await navigator.mediaDevices.getUserMedia({ audio: true }); }
+    catch (e) { return shState("say", "The microphone is blocked. Allow it for this site in your browser's settings, then tap the microphone again."); }
+    if (!SH || no !== SH.no) return;
+  }
+  const type = ["audio/mp4", "audio/webm;codecs=opus", "audio/webm"].find(t => MediaRecorder.isTypeSupported(t));
+  mic.chunks = [];
+  mic.rec = new MediaRecorder(mic.stream, type ? { mimeType: type } : undefined);
+  mic.rec.ondataavailable = e => { if (e.data && e.data.size) mic.chunks.push(e.data); };
+  mic.rec.onstop = () => {
+    const kept = mic.rec && mic.rec._keep, blob = new Blob(mic.chunks, { type: (mic.rec && mic.rec.mimeType) || type || "" });
+    mic.rec = null;
+    if (!kept || !SH || !blob.size) return;
+    if (mic.url) URL.revokeObjectURL(mic.url);
+    mic.url = URL.createObjectURL(blob); SH.tried = true;
+    playBoth();
+  };
+  mic.rec.start();
+  shState("rec");
+  meterOn();
+  // stops by itself after a pause long enough for the phrase, in case the button is forgotten
+  mic.stop = setTimeout(() => stopRec(), Math.max(3500, Math.min(10000, 2500 + p.zh.length * 380)));
+}
+function stopRec(discard) {
+  clearTimeout(mic.stop); clearInterval(mic.meter);
+  const m = $("#shCard .sh-meter"); if (m) m.style.setProperty("--lv", 0);
+  if (mic.rec && mic.rec.state !== "inactive") { mic.rec._keep = !discard; mic.rec.stop(); }
+}
+// A row of bars that jump with your voice, so you can see the microphone is hearing you.
+function meterOn() {
+  try {
+    const AC = window.AudioContext || window.webkitAudioContext;
+    if (!mic.ctx) { mic.ctx = new AC(); mic.an = mic.ctx.createAnalyser(); mic.an.fftSize = 256; mic.ctx.createMediaStreamSource(mic.stream).connect(mic.an); }
+    if (mic.ctx.state === "suspended") mic.ctx.resume();
+    const buf = new Uint8Array(mic.an.fftSize);
+    mic.meter = setInterval(() => {
+      mic.an.getByteTimeDomainData(buf);
+      let sum = 0; for (let i = 0; i < buf.length; i++) { const v = (buf[i] - 128) / 128; sum += v * v; }
+      const m = $("#shCard .sh-meter"); if (m) m.style.setProperty("--lv", Math.min(1, Math.sqrt(sum / buf.length) * 4).toFixed(2));
+    }, 70);
+  } catch (e) {}
+}
+function playBoth() {
+  const no = ++SH.no, p = SH.items[SH.i], b = $("#shCard .sh-mic");
+  shState("compare", "First the model…");
+  speak(p.zh, b, () => {
+    if (!SH || no !== SH.no) return;
+    $("#shMsg").textContent = "…now you.";
+    b.classList.add("playing");
+    const end = () => { b.classList.remove("playing"); if (SH && no === SH.no) shState("ask"); };
+    mic.mine.onended = end; mic.mine.onerror = end;
+    mic.mine.src = mic.url;
+    mic.mine.play().catch(end);
+  });
+}
+sh.addEventListener("click", e => {
+  const b = e.target.closest("[data-s]");
+  if (!b || !SH) return;
+  const a = b.dataset.s;
+  if (a === "close") closeShadow();
+  else if (a === "again") startShadow(SH.again(), SH.title, SH.again);
+  else if (a === "model" || a === "retry") playModel();
+  else if (a === "next") {
+    // saying a phrase aloud counts like a practice card: 2 points, and one towards today's goal
+    if (SH.tried) { const p = SH.items[SH.i]; SH.done++; withRewards(p, () => { G.reviews++; saveG(); bump(p.id); }); }
+    stopRec(true); stopAudio(); mic.mine.pause(); SH.i++; drawShadow();
+  }
+  else if (a === "mic") { if (SH.state === "say") startRec(); else if (SH.state === "rec") stopRec(); else if (SH.state === "listen") playModel(); else playBoth(); }
 });
 
 /* ───────────── boot: load module files ───────────── */
@@ -1198,7 +1415,7 @@ let pending = MT.files.length;
 if (!pending) start();
 MT.files.forEach(f => {
   const s = document.createElement("script");
-  s.src = "modules/" + f + ".js"; s.async = false;
+  s.src = "modules/" + f + ".js?v=20261013042753"; s.async = false;
   s.onload = () => { if (!MT.modules.some(m => m.id === f)) MT.failed.push(f + ".js (id should be \"" + f + "\")"); if (--pending === 0) start(); };
   s.onerror = () => { MT.failed.push(f + ".js"); if (--pending === 0) start(); };
   document.head.appendChild(s);

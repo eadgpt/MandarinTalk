@@ -20,6 +20,7 @@ MT.files = [
 
 // Newest first. The top entry shows on the home page.
 MT.changelog = [
+  { date: "2026-10-13", text: "New: tap 🎙️ on any phrase to say it and hear yourself next to the model. And phrases you know now come back for review just before you would forget them." },
   { date: "2026-10-04", text: "New Priority module: Changi Airport & Jewel Tour — hosting guests and VIPs around the airport and Jewel, with the key facts and figures." },
   { date: "2026-10-04", text: "New look: bottom bar, category chips, one topic at a time with Next buttons, back-to-top button, plus daily goals, streaks, levels and medals." },
   { date: "2026-10-04", text: "Text size: Settings → A− / A+. Favourites: tap ☆ on any phrase or \"Remember these\" card to save it. Every module now has a \"Remember these\" box, and Senior Leaders covers the C-suite." },
