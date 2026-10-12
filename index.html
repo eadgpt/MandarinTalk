@@ -357,6 +357,12 @@ body{padding-bottom:calc(66px + env(safe-area-inset-bottom))}
 .mrow span{font-size:20px;letter-spacing:2px;white-space:nowrap}
 .mrow span u{text-decoration:none;opacity:.22;filter:grayscale(1)}
 .mrow em{font-style:normal;font-size:max(12px,calc(13px*var(--fs)));color:var(--muted);min-width:3em;text-align:right}
+/* ── tips: a short explanation when the mouse rests on a button ── */
+.tipbox{position:fixed;left:0;top:0;z-index:80;max-width:min(320px,calc(100vw - 16px));background:var(--ink);color:var(--bg);border-radius:14px;padding:11px 14px;box-shadow:0 14px 36px rgba(0,0,0,.32);
+  pointer-events:none;opacity:0;visibility:hidden;transform:translateY(6px);transition:opacity .16s,transform .2s,visibility 0s .2s;font-size:calc(14px*var(--fs));line-height:1.45}
+.tipbox.show{opacity:1;visibility:visible;transform:none;transition:opacity .16s,transform .2s}
+.tipbox b{display:block;margin-bottom:2px}
+.tipbox span{display:block;opacity:.9}
 /* ── say it and compare ── */
 .sh-en{font-size:calc(15px*var(--fs));color:var(--ink-2)}
 .sh-steps{display:flex;justify-content:center;gap:6px;flex-wrap:wrap}
@@ -408,7 +414,7 @@ body{padding-bottom:calc(66px + env(safe-area-inset-bottom))}
   <div class="tabbar-in">
     <a class="tb" data-nav="home" href="#/"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11l8-7 8 7v8a1 1 0 0 1-1 1h-4v-6h-6v6H5a1 1 0 0 1-1-1z"/></svg><span>Home</span></a>
     <button class="tb" data-nav="search" data-go="search"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span>Search</span></button>
-    <button class="tb tb-go" data-go="practice" aria-label="Practise now"><i><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></i><span>Practise</span></button>
+    <button class="tb tb-go" data-go="practice" aria-label="Practise now" data-tip="Practise now|A short round: reviews that are due first, then new phrases, just enough to reach today's goal."><i><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></i><span>Practise</span></button>
     <a class="tb" data-nav="fav" href="#/m/fav"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5l2.7 5.5 6 .9-4.4 4.2 1 6-5.3-2.8-5.3 2.8 1-6L3.3 9.9l6-.9z"/></svg><span>Saved</span><em id="tbFav"></em></a>
     <a class="tb" data-nav="me" href="#/me"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg><span>Me</span></a>
   </div>
@@ -463,14 +469,14 @@ body{padding-bottom:calc(66px + env(safe-area-inset-bottom))}
 
 <div class="toast" id="toast"></div>
 
-<script src="lib/pinyin-pro.js?v=20261013042753"></script>
-<script src="lib/art.js?v=20261013042753"></script>
+<script src="lib/pinyin-pro.js?v=20261013043213"></script>
+<script src="lib/art.js?v=20261013043213"></script>
 <script>
 // Modules call MT.module({...}) when they load.
 window.MT = { modules: [], failed: [], areas: [], files: [], changelog: [],
   module(def) { if (!this.modules.some(m => m.id === def.id)) this.modules.push(def); } };
 </script>
-<script src="modules/list.js?v=20261013042753"></script>
+<script src="modules/list.js?v=20261013043213"></script>
 <script>
 (function () {
 "use strict";
@@ -593,6 +599,27 @@ const ICON = {
   mic: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>'
 };
 function toast(msg, ms) { const t = $("#toast"); t.textContent = msg; t.classList.add("show"); clearTimeout(toast.t); toast.t = setTimeout(() => t.classList.remove("show"), ms || 2600); }
+
+/* ───────────── tips ─────────────
+   tip("practise") gives an element a short explanation, shown when the mouse rests on it. "Title|Text". */
+const TIPS = {
+  practise: "Practise|Flashcards for this module. A phrase you get right comes back after 1, 3, 7, 14, 30 and 60 days.",
+  speak: "Speak|A round of eight phrases: hear each one, record yourself saying it, then hear the model and your own voice back to back.",
+  topic: "Practise topic|Flashcards for just the topic on screen.",
+  say: "Listen|Play this phrase.",
+  mic: "Say it|Hear the phrase, record yourself, then hear the model and your own voice one after the other.",
+  known: "I know this|Tick it off. It counts towards today's goal, and comes back for review later.",
+  fav: "Save|Keep this in Favourites, under Saved in the bottom bar.",
+  favKey: "Save card|Keep this card in Favourites.",
+  remember: "Remember these|The few ideas that make the rest of the module easier: a pattern, a habit, a bit of culture.",
+  hide: "Hide known|Show only the phrases you have not ticked yet.",
+  level: "Difficulty|Easy = short and essential. Medium = everyday. Hard = longer or more formal.",
+  goal: "Daily goal|A phrase counts when you tick it, press “Got it” in practice, or say it aloud. Reach the goal each day to keep your streak.",
+  review: "To review|Phrases you already know that are due to come round again. The Practise button serves these first.",
+  daily: "Practise now|A short round: reviews that are due first, then new phrases, just enough to reach today's goal.",
+  pinyin: "Tap to hear|Pinyin under each character, coloured by tone. Tap the Chinese to play it."
+};
+const tip = key => TIPS[key] ? ` data-tip="${esc(TIPS[key])}"` : "";
 
 /* ───────────── parsing ─────────────
    Line:  Level | English | 中文 | note        "# Title | 标题" = group
@@ -774,15 +801,15 @@ function rowHTML(p, showMod) {
   return `<article class="row${k ? " is-known" : ""}" data-id="${p.id}">
     <div class="en">
       <p class="en-t">${esc(p.en)}</p>
-      <div class="meta"><span class="lvl ${p.lvl}">${LV[p.lvl]}</span>${showMod ? `<span class="mod-label">${esc(BY[p.mod].title)} · ${esc(p.group)}</span>` : ""}</div>
+      <div class="meta"><span class="lvl ${p.lvl}"${tip("level")}>${LV[p.lvl]}</span>${showMod ? `<span class="mod-label">${esc(BY[p.mod].title)} · ${esc(p.group)}</span>` : ""}</div>
       ${p.note ? `<div class="note" style="margin-top:6px">${esc(p.note)}</div>` : ""}
     </div>
-    <button class="zh" data-act="say" aria-label="Play ${esc(p.zh)}">${zhHTML(p)}</button>
+    <button class="zh" data-act="say" aria-label="Play ${esc(p.zh)}"${tip("pinyin")}>${zhHTML(p)}</button>
     <div class="acts">
-      <button class="ic say" data-act="say" aria-label="Play audio">${ICON.say}</button>
-      <button class="ic shadow" data-act="shadow" aria-label="Say it and compare with the model" title="Say it and compare">${ICON.mic}</button>
-      <button class="ic tick" data-act="known" aria-pressed="${k}" aria-label="Mark as known">${ICON.tick}</button>
-      <button class="ic star" data-act="fav" aria-pressed="${favs.has(p.id)}" aria-label="Save to favourites">${ICON.star}</button>
+      <button class="ic say" data-act="say" aria-label="Play audio"${tip("say")}>${ICON.say}</button>
+      <button class="ic shadow" data-act="shadow" aria-label="Say it and compare with the model"${tip("mic")}>${ICON.mic}</button>
+      <button class="ic tick" data-act="known" aria-pressed="${k}" aria-label="Mark as known"${tip("known")}>${ICON.tick}</button>
+      <button class="ic star" data-act="fav" aria-pressed="${favs.has(p.id)}" aria-label="Save to favourites"${tip("fav")}>${ICON.star}</button>
     </div>
   </article>`;
 }
@@ -797,11 +824,11 @@ function renderHome() {
   let h = `<h1 class="hello">Speak up at work and on the road. <span>好好说。</span></h1>
   <section class="goal">
     <div class="art goal-art">${art({ id: "home" })}</div>
-    <div class="ring" style="--p:${Math.min(100, t[0] / G.goal * 100)}"><div><b>${t[0]}</b><small>of ${G.goal}</small></div></div>
+    <div class="ring"${tip("goal")} style="--p:${Math.min(100, t[0] / G.goal * 100)}"><div><b>${t[0]}</b><small>of ${G.goal}</small></div></div>
     <div class="goal-txt">
       <div class="goal-h">${t[1] ? "Goal reached today! 🎉" : t[0] ? `${left} more to hit today's goal` : `Today's goal: ${G.goal} phrases`}</div>
-      <div class="pills"><span class="pill${st ? " hot" : ""}">🔥 ${st ? st + "-day streak" : "Start a streak"}</span><a class="pill" href="#/me">Lv ${lv.n} ${lv.zh}</a><span class="pill">${fmt(xp())} pts</span>${dueItems().length ? `<span class="pill">🔁 ${dueItems().length} to review</span>` : ""}</div>
-      <div class="goal-btns"><button class="btn primary small" data-act="daily">${ICON.play} ${t[0] ? "Keep going" : "Start practising"}</button></div>
+      <div class="pills"><span class="pill${st ? " hot" : ""}">🔥 ${st ? st + "-day streak" : "Start a streak"}</span><a class="pill" href="#/me">Lv ${lv.n} ${lv.zh}</a><span class="pill">${fmt(xp())} pts</span>${dueItems().length ? `<span class="pill"${tip("review")}>🔁 ${dueItems().length} to review</span>` : ""}</div>
+      <div class="goal-btns"><button class="btn primary small" data-act="daily"${tip("daily")}>${ICON.play} ${t[0] ? "Keep going" : "Start practising"}</button></div>
     </div>
   </section>`;
   if (MT.failed.length) h += `<div class="warn">Couldn't load: ${MT.failed.map(esc).join(", ")}. Check the file names in modules/list.js.</div>`;
@@ -901,7 +928,7 @@ function tabsOf(m, keyList) {
 function tabsHTML() {
   return view.tabs.map(t => {
     const g = t.g, k = g ? knownIn(g.items) : 0, done = g && g.items.length && k === g.items.length;
-    return `<button class="tab${done ? " done" : ""}" role="tab" data-tab="${t.id}" aria-selected="${t.id === view.tab}">${esc(t.label)}${g ? `<em>${done ? "✓" : k + "/" + g.items.length}</em>` : t.n ? `<em>${t.n}</em>` : ""}</button>`;
+    return `<button class="tab${done ? " done" : ""}" role="tab" data-tab="${t.id}" aria-selected="${t.id === view.tab}"${t.id === "keys" ? tip("remember") : ""}>${esc(t.label)}${g ? `<em>${done ? "✓" : k + "/" + g.items.length}</em>` : t.n ? `<em>${t.n}</em>` : ""}</button>`;
   }).join("");
 }
 function centreTab() {
@@ -923,7 +950,7 @@ function renderModule(id) {
     <div class="mtitle"><div><div class="zhT">${esc(m.zh)}</div><h1>${esc(m.title)}</h1></div></div>
     <div class="mstats">${m.items.length} phrases · <span id="kCount">${knownIn(m.items)}</span> known${id === "fav" ? ` · ${keyList.length} card${keyList.length === 1 ? "" : "s"}` : ""}${md ? ` · ${MEDAL[md]} ${MEDAL_NAME[md]}` : ""}</div>
     <div class="mbtns">
-      ${m.items.length ? `<button class="btn primary" data-act="practice">${ICON.play} Practise</button><button class="btn ghost" data-act="shadow-mod">🎙️ Speak</button>` : ""}
+      ${m.items.length ? `<button class="btn primary" data-act="practice"${tip("practise")}>${ICON.play} Practise</button><button class="btn ghost" data-act="shadow-mod"${tip("speak")}>🎙️ Speak</button>` : ""}
       ${id === "mine" ? `<button class="btn ghost" data-act="edit-mine">Edit list</button>` : ""}
     </div>
   </div>`;
@@ -952,8 +979,8 @@ function paneHTML() {
   if (m.items.length) {
     h += `<div class="tools">
       <div class="seg" id="lvlSeg">${["all", "E", "M", "H"].map(l => `<button data-lvl="${l}" aria-pressed="${view.level === l}">${l === "all" ? "All" : LV[l]}</button>`).join("")}</div>
-      <label class="switch">Hide known <input type="checkbox" id="hideKnown" ${view.hideKnown ? "checked" : ""}></label>
-      ${all ? "" : `<span class="grow"></span><button class="btn small" data-act="practice-topic">${ICON.play} Practise topic</button>`}
+      <label class="switch"${tip("hide")}>Hide known <input type="checkbox" id="hideKnown" ${view.hideKnown ? "checked" : ""}></label>
+      ${all ? "" : `<span class="grow"></span><button class="btn small" data-act="practice-topic"${tip("topic")}>${ICON.play} Practise topic</button>`}
     </div>`;
     h += (all ? m.groups : [m.groups[+t]]).map(groupHTML).join("") || `<div class="empty">Nothing to show with these filters. Try another level or turn off "Hide known".</div>`;
   }
@@ -976,7 +1003,7 @@ function setTab(id) {
 function keysHTML(keys, showMod) {
   if (!keys.length) return "";
   return `<section class="keys" data-sec><h3>${showMod ? "Saved cards" : "Remember these"} <span>${showMod ? "收藏的要点" : "记住这几点"}</span><em>${keys.length}</em></h3>
-    <div class="keys-grid">${keys.map(k => `<div class="key" data-key="${k.id}"><button class="kstar" data-act="fav-key" aria-pressed="${favKeys.has(k.id)}" aria-label="Save card to favourites">${ICON.star}</button>${k.t ? `<b>${zhInline(k.t)}</b>` : ""}<span>${zhInline(k.b)}</span>${showMod ? `<i>${esc(BY[k.mod].title)}</i>` : ""}</div>`).join("")}</div></section>`;
+    <div class="keys-grid">${keys.map(k => `<div class="key" data-key="${k.id}"><button class="kstar" data-act="fav-key" aria-pressed="${favKeys.has(k.id)}" aria-label="Save card to favourites"${tip("favKey")}>${ICON.star}</button>${k.t ? `<b>${zhInline(k.t)}</b>` : ""}<span>${zhInline(k.b)}</span>${showMod ? `<i>${esc(BY[k.mod].title)}</i>` : ""}</div>`).join("")}</div></section>`;
 }
 function mineEditorHTML(open) {
   return `<div class="editor" id="mineEditor" ${open ? "" : "hidden"}>
@@ -1403,6 +1430,47 @@ sh.addEventListener("click", e => {
   else if (a === "mic") { if (SH.state === "say") startRec(); else if (SH.state === "rec") stopRec(); else if (SH.state === "listen") playModel(); else playBoth(); }
 });
 
+/* ───────────── tips: shown on hover (mouse) and on keyboard focus; touch screens have no hover, so nothing shows there ───────────── */
+(function () {
+  const box = document.createElement("div"), fine = window.matchMedia("(hover: hover) and (pointer: fine)");
+  box.className = "tipbox"; box.setAttribute("role", "tooltip"); document.body.appendChild(box);
+  let cur = null, timer = 0, mx = 0, my = 0;
+  const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+  const place = (x, y, above) => {
+    let top = y + 20;
+    if (top + box.offsetHeight > window.innerHeight - 8) top = (above == null ? y : above) - box.offsetHeight - 12;
+    box.style.left = clamp(x - 24, 8, window.innerWidth - box.offsetWidth - 8) + "px"; box.style.top = Math.max(8, top) + "px";
+  };
+  const show = (el, x, y, above) => {
+    const [title, text] = el.dataset.tip.split("|");
+    box.textContent = "";
+    if (text) { const b = document.createElement("b"); b.textContent = title; box.appendChild(b); }
+    const sp = document.createElement("span"); sp.textContent = text || title; box.appendChild(sp);
+    place(x, y, above); box.classList.add("show");
+  };
+  const hide = () => { clearTimeout(timer); box.classList.remove("show"); cur = null; };
+  document.addEventListener("mouseover", e => {
+    if (!fine.matches) return;
+    const el = e.target.closest ? e.target.closest("[data-tip]") : null;
+    if (el === cur) return;
+    hide();
+    if (!el) return;
+    cur = el;
+    timer = setTimeout(() => { if (cur === el) show(el, mx, my); }, 350);
+  });
+  document.addEventListener("mousemove", e => { mx = e.clientX; my = e.clientY; if (cur && box.classList.contains("show")) place(mx, my); });
+  document.addEventListener("focusin", e => {
+    const el = e.target.closest ? e.target.closest("[data-tip]") : null;
+    if (!el || !e.target.matches(":focus-visible")) return;
+    const r = el.getBoundingClientRect(); cur = el; show(el, r.left + 24, r.bottom - 8, r.top);
+  });
+  document.addEventListener("focusout", hide);
+  document.addEventListener("click", hide, true);
+  document.addEventListener("mouseleave", hide);
+  window.addEventListener("scroll", hide, { passive: true });
+  window.addEventListener("hashchange", hide);
+})();
+
 /* ───────────── boot: load module files ───────────── */
 function start() {
   MODS = MT.files.map(f => MT.modules.find(m => m.id === f) ).filter(Boolean)
@@ -1415,7 +1483,7 @@ let pending = MT.files.length;
 if (!pending) start();
 MT.files.forEach(f => {
   const s = document.createElement("script");
-  s.src = "modules/" + f + ".js?v=20261013042753"; s.async = false;
+  s.src = "modules/" + f + ".js?v=20261013043213"; s.async = false;
   s.onload = () => { if (!MT.modules.some(m => m.id === f)) MT.failed.push(f + ".js (id should be \"" + f + "\")"); if (--pending === 0) start(); };
   s.onerror = () => { MT.failed.push(f + ".js"); if (--pending === 0) start(); };
   document.head.appendChild(s);
