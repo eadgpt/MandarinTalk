@@ -357,6 +357,11 @@ body{padding-bottom:calc(66px + env(safe-area-inset-bottom))}
 .mrow span{font-size:20px;letter-spacing:2px;white-space:nowrap}
 .mrow span u{text-decoration:none;opacity:.22;filter:grayscale(1)}
 .mrow em{font-style:normal;font-size:max(12px,calc(13px*var(--fs)));color:var(--muted);min-width:3em;text-align:right}
+/* ── Chinese inside a card can be tapped to hear it ── */
+.zs{cursor:pointer}
+.zs .c b{transition:color .15s}
+.zs:hover .c b,.zs.playing .c b{color:var(--accent)}
+.hear-hint{margin:0;padding:0 16px 10px;font-size:max(12px,calc(13px*var(--fs)));color:var(--muted)}
 /* ── tips: a short explanation when the mouse rests on a button ── */
 .tipbox{position:fixed;left:0;top:0;z-index:80;max-width:min(320px,calc(100vw - 16px));background:var(--ink);color:var(--bg);border-radius:14px;padding:11px 14px;box-shadow:0 14px 36px rgba(0,0,0,.32);
   pointer-events:none;opacity:0;visibility:hidden;transform:translateY(6px);transition:opacity .16s,transform .2s,visibility 0s .2s;font-size:calc(14px*var(--fs));line-height:1.45}
@@ -469,14 +474,14 @@ body{padding-bottom:calc(66px + env(safe-area-inset-bottom))}
 
 <div class="toast" id="toast"></div>
 
-<script src="lib/pinyin-pro.js?v=20261013043213"></script>
-<script src="lib/art.js?v=20261013043213"></script>
+<script src="lib/pinyin-pro.js?v=20261013043446"></script>
+<script src="lib/art.js?v=20261013043446"></script>
 <script>
 // Modules call MT.module({...}) when they load.
 window.MT = { modules: [], failed: [], areas: [], files: [], changelog: [],
   module(def) { if (!this.modules.some(m => m.id === def.id)) this.modules.push(def); } };
 </script>
-<script src="modules/list.js?v=20261013043213"></script>
+<script src="modules/list.js?v=20261013043446"></script>
 <script>
 (function () {
 "use strict";
@@ -617,6 +622,7 @@ const TIPS = {
   goal: "Daily goal|A phrase counts when you tick it, press “Got it” in practice, or say it aloud. Reach the goal each day to keep your streak.",
   review: "To review|Phrases you already know that are due to come round again. The Practise button serves these first.",
   daily: "Practise now|A short round: reviews that are due first, then new phrases, just enough to reach today's goal.",
+  hearWord: "🔊 Click to hear it",
   pinyin: "Tap to hear|Pinyin under each character, coloured by tone. Tap the Chinese to play it."
 };
 const tip = key => TIPS[key] ? ` data-tip="${esc(TIPS[key])}"` : "";
@@ -692,7 +698,8 @@ function zhInline(text) {
     let zh = "";
     const ov = {};
     m[0].replace(/([一-鿿])(?:\[([^\]]*)\])?/g, (all, ch, py) => { if (py) ov[zh.length] = py.trim(); zh += ch; });
-    out += esc(text.slice(last, m.index)) + zhHTML({ zh, ov });
+    // the whole run is one tappable piece, so a tap reads out the word or sentence, not a single character
+    out += esc(text.slice(last, m.index)) + `<span class="zs" data-say="${zh}"${tip("hearWord")}>${zhHTML({ zh, ov })}</span>`;
     last = m.index + m[0].length;
   }
   return out + esc(text.slice(last));
@@ -1003,6 +1010,7 @@ function setTab(id) {
 function keysHTML(keys, showMod) {
   if (!keys.length) return "";
   return `<section class="keys" data-sec><h3>${showMod ? "Saved cards" : "Remember these"} <span>${showMod ? "收藏的要点" : "记住这几点"}</span><em>${keys.length}</em></h3>
+    <p class="hear-hint">🔊 Tap any Chinese to hear it.</p>
     <div class="keys-grid">${keys.map(k => `<div class="key" data-key="${k.id}"><button class="kstar" data-act="fav-key" aria-pressed="${favKeys.has(k.id)}" aria-label="Save card to favourites"${tip("favKey")}>${ICON.star}</button>${k.t ? `<b>${zhInline(k.t)}</b>` : ""}<span>${zhInline(k.b)}</span>${showMod ? `<i>${esc(BY[k.mod].title)}</i>` : ""}</div>`).join("")}</div></section>`;
 }
 function mineEditorHTML(open) {
@@ -1100,6 +1108,8 @@ window.addEventListener("scroll", () => { if (!fabT) fabT = setTimeout(() => { f
 
 /* ───────────── clicks ───────────── */
 app.addEventListener("click", e => {
+  const word = e.target.closest(".zs[data-say]");   // Chinese inside a "Remember these" card: tap to hear it
+  if (word && !e.target.closest("[data-act]")) { speak(word.dataset.say, word); return; }
   const b = e.target.closest("[data-act],[data-lvl],[data-tab],[data-cat],[data-goal]");
   if (!b) return;
   if (b.dataset.lvl) { view.level = b.dataset.lvl; renderPane(); return; }
@@ -1483,7 +1493,7 @@ let pending = MT.files.length;
 if (!pending) start();
 MT.files.forEach(f => {
   const s = document.createElement("script");
-  s.src = "modules/" + f + ".js?v=20261013043213"; s.async = false;
+  s.src = "modules/" + f + ".js?v=20261013043446"; s.async = false;
   s.onload = () => { if (!MT.modules.some(m => m.id === f)) MT.failed.push(f + ".js (id should be \"" + f + "\")"); if (--pending === 0) start(); };
   s.onerror = () => { MT.failed.push(f + ".js"); if (--pending === 0) start(); };
   document.head.appendChild(s);
